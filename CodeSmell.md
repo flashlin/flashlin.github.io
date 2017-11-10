@@ -3,20 +3,20 @@
 # Long Method 超長的方法
 <img src="CodeSmell-Images/Long-Method.png" width="30%">
 
-一個方法包含了太多的代碼行。一般來說，任何超過十行的方法都會讓你開始提問。
+一個方法包含了太多的程式碼行。一般來說，任何超過十行的方法都會讓你開始提問。
 
 * 要減少方法的長度, 請使用 "Extract Method".
 * 如果局部變量和參數干擾提取方法, 請使用 "Replace Temp with Query", "Introduce Parameter Object", "Preserve Whole Object"
 * 假如沒辦法用上述的方法, 請嘗試使用 "Replace Method with Method Object" 將整個方法移動到單獨的物件。
-* 對於If 條件，請使用 "Decompose Conditional"。試著將迴圈loop 內的程式碼嘗試 "Extract Method"。
+* 對於If 條件，請使用 "Decompose Conditional"。試著將迴圈loop 內的程式碼嘗試進行 "Extract Method"。
 
 
 
 # Large Class 超大物件
 <img src="CodeSmell-Images/Large-Class.png" width="30%">
 
-* 如果大類的部分行為可以分解為一個單獨的組件，則 "Extract Class" 可以提供幫助。
-* 如果大類的部分行為可以以不同的方式實現，或者在極少數情況下使用，則 "Extract Subclass" 可以提供幫助。
+* 如果超大物件的部分行為可以分解為一個單獨的元件，則 "Extract Class" 可以提供幫助。
+* 如果超大物件的部分行為可以以不同的方式實現，或者在極少數情況下使用，則 "Extract Subclass" 可以提供幫助。
 * 如果需要獲取客戶端可以使用的操作和行為的列表，"Extract Interface" 可以提供幫助。
 * 如果一個大物件負責圖形界面，你可以嘗試將其一些數據和行為移動到一個單獨的域對象。在這樣做時，可能需要將一些數據的副本存儲在兩個地方，並保持數據的一致性。重複觀測資料提供了一種方法來做到這一點。
 
@@ -26,14 +26,14 @@
 <img src="CodeSmell-Images/Primitive-Obsession.png" width="30%"/>
 
 症狀
-* 使用基元代替簡單任務的小對象（例如貨幣，範圍，電話號碼的特殊字符串等）
-* 使用常量來編碼信息（例如USER_ADMIN_ROLE = 1用於引用具有管理員權限的用戶的常量）。
-* 使用字符串常量作為在數據數組中使用的字段名稱。
+* 使用基本元素代替簡單任務的小對象（例如貨幣，範圍，電話號碼的特殊字符串等）
+* 使用常量來程式碼信息（例如USER_ADMIN_ROLE = 1用於引用具有管理員權限的用戶的常量）。
+* 使用字符串常量作為在數據數組中使用的欄位名稱。
 
 治療
-* 如果你有各種各樣的原始字段，可以將它們中的一些邏輯分組到他們自己的物件中。對於這個任務，嘗試用 "Replace Data Value with Object" 。
-* 如果在方法參數中使用了原始字段的值，請使用 "Introduce Parameter Object" 或 "Reserve Whole Object" 。
-* 當複雜的數據變量進行編碼，使用與更換類類型代碼，與子類替換類型代碼或與國家/策略替換類型代碼。
+* 如果你有各種各樣的原始欄位，可以將它們中的一些邏輯分組到他們自己的物件中。對於這個任務，嘗試用 "Replace Data Value with Object" 。
+* 如果在方法參數中使用了原始欄位的值，請使用 "Introduce Parameter Object" 或 "Reserve Whole Object" 。
+* 當複雜的數據變量進行程式碼，可使用 "Replace Type Code with Class" 用物件替換程式碼，"Replace Type Code with Subclasses" 用子物件替換程式碼, 或 "Replace Type Code with State/Strategy" 用狀態/策略替換程式碼。
 * 如果變量中有數組，請使用 "Replace Array with Object" 。
 
 
@@ -43,7 +43,7 @@
 
 一個方法有三個或四個參數以上。
 
-* 檢查傳遞給參數的值。如果某些參數只是另一個物件的方法調用的結果，請使用 "Replace Parameter with Method Call" , 或者作為一個方法參數傳遞。
+* 檢查傳遞給參數的值。如果某些參數只是另一個物件的方法呼叫的結果，請使用 "Replace Parameter with Method Call" , 或者作為一個方法參數傳遞。
 * 不是將從另一個物件接收到的一組數據作為參數傳遞，而是使用"Preserve Whole Object" 將該物件本身傳遞給該方法。
 * 如果有幾個不相關的數據元素，有時可以通過 "Introduce Parameter Object" 將它們合併到單個參數物件中。
 
@@ -51,20 +51,20 @@
 
 # Data Clumps 資料泥塊
 
-有時代碼的不同部分包含相同的變量組（例如連接到數據庫的參數）。這些資料塊應該變成他們自己的物件。
+有時程式碼的不同部分包含相同的變量組（例如連接到數據庫的參數）。這些資料塊應該變成他們自己的物件。
 
-* 如果重複的數據包含一個物件的欄位，請使用 "Extract Class" 將這些字段移動到它們自己的物件中。
+* 如果重複的數據包含一個物件的欄位，請使用 "Extract Class" 將這些欄位移動到它們自己的物件中。
 * 如果在方法的參數中傳遞相同的數據塊，則使用 "Introduce Parameter Object" 將它們設置為物件。
-* 如果某些數據傳遞給其他方法，則考慮將整個數據對像傳遞給方法而不是單個字段。"Reserve Whole Object" 將有助於此。
+* 如果某些數據傳遞給其他方法，則考慮將整個數據對像傳遞給方法而不是單個欄位。"Reserve Whole Object" 將有助於此。
 
 
 
 # Switch Statements 切換命令語句
 
 * 要隔離 switch 並將其放在正確的物件中，可能需要 "Extract Method" ，然後 "Move Method"。
-* 如果 switch 是基於物件代碼的，例如當程序的運行時模式被切換時，使用 "Replace Type Code with Subclasses" ，或者用 "Replace Type Code with State/Strategy"。
+* 如果 switch 是基於物件程式碼的，例如當程序的運行時模式被切換時，使用 "Replace Type Code with Subclasses" ，或者用 "Replace Type Code with State/Strategy"。
 * 在指定繼承結構之後，"Replace Conditional with Polymorphism" 用多態性替換條件。
-* 如果條件不是太多，他們都調用不同參數的方法，那麼多態將是多餘的。如果出現這種情況，可以使用 "Replace Parameter with Explicit Method" 顯式方法替換參數將該方法分解為多個更小的方法，並相應地更改 switch。
+* 如果條件不是太多，他們都呼叫不同參數的方法，那麼多態將是多餘的。如果出現這種情況，可以使用 "Replace Parameter with Explicit Method" 顯式方法替換參數將該方法分解為多個更小的方法，並相應地更改 switch。
 * 如果其中一個條件選項是null使用 "Introduce Null Object" 引入空物件。
 
 
@@ -72,8 +72,8 @@
 # Temporary Field 暫存欄位
 只有在某些情況下，暫存欄位才會獲得它們的值。在這些情況之外，他們是null。
 
-* 暫存欄位和在其上運行的所有代碼可以通過 "Extract Class" 放在單獨的物件中。換句話說，你也可以使用 "Replace Method with Method Object" 獲得相同的結果。
-* "Introduce Null Object" 並將其集成到用於檢查Temporary Field 是否存在的條件代碼中。
+* 暫存欄位和在其上運行的所有程式碼可以通過 "Extract Class" 放在單獨的物件中。換句話說，你也可以使用 "Replace Method with Method Object" 獲得相同的結果。
+* "Introduce Null Object" 並將其集成到用於檢查Temporary Field 是否存在的條件程式碼中。
 
 
 # Refused Bequest 拒絕遺贈
@@ -112,7 +112,7 @@
 霰彈槍手術類似Divergent Change發散變化，但實際上是相反的氣味。發散變化是指對一個物件進行了許多更改。散彈槍手術是指當同時對多個物件進行單一改變時。
 
 * 使用"Move Method"和"Move Field"將現有的物件行為移動到一個物件中。如果沒有合適的物件程，請創建一個新物件。
-* 如果將代碼移到同一個物件中，原來的物件幾乎為空，請嘗試通過Inline Class去除這些冗餘物件。
+* 如果將程式碼移到同一個物件中，原來的物件幾乎為空，請嘗試通過Inline Class去除這些冗餘物件。
 
 
 # Parallel Inheritance Hierarchies 平行繼承層次結構
@@ -121,66 +121,66 @@
 
 您可以分兩步去重複平行物件層次結構。首先，使一個層次結構的實例引用另一個層次結構的實例。然後，通過使用 "Move Method" 和 "Move Field"來移除引用物件中的層次結構。
 
-> 有時並行的物件層次結構只是避免程序架構混亂的一種方式。如果您發現嘗試去重複層次結構會產生更糟糕的代碼，那就退出，恢復所有更改並習慣該代碼。
+> 有時並行的物件層次結構只是避免程序架構混亂的一種方式。如果您發現嘗試去重複層次結構會產生更糟糕的程式碼，那就退出，恢復所有更改並習慣該程式碼。
 
 
 # Comments 註解
-如果您覺得代碼片段不能被理解為沒有註釋，請嘗試更改代碼結構，使註釋變得不必要。
+如果您覺得程式碼片段不能被理解為沒有註釋，請嘗試更改程式碼結構，使註釋變得不必要。
 
 * 如果評論意圖解釋一個複雜的表達式，則表達式應該使用 “ 抽取變量” 分解為可理解的子表達式。
 
-* 如果註釋解釋了一段代碼，則可以通過 "Extract Method"將此部分轉換為單獨的方法。新方法的名稱很可能取自評論文本本身。
+* 如果註釋解釋了一段程式碼，則可以通過 "Extract Method"將此部分轉換為單獨的方法。新方法的名稱很可能取自評論文本本身。
 
 * 如果已經提取了一個方法，但是仍然需要註釋來解釋這個方法是幹什麼的，那麼給這個方法一個不言自明的名字。請使用 "Rename Method"。
 
-* 如果需要聲明關於系統工作所需的狀態的規則，請使用“ 引入斷言”。
+* 如果需要聲明關於系統工作所需的狀態的規則，請使用 "Introduce Assertion" 引入斷言。
 
 
 # Duplicate Code 重複的程式碼
-兩個代碼片段看起來幾乎相同。
+兩個程式碼片段看起來幾乎相同。
 
 <img src="CodeSmell-Images/duplicate-code.png" width="40%" />
 
-* 如果在同一個物件中的兩個或多個方法中找到相同的代碼：使用"Extract Method" 並在兩個地方調用新方法。
+* 如果在同一個物件中的兩個或多個方法中找到相同的程式碼：使用"Extract Method" 並在兩個地方呼叫新方法。
 
-* 如果在同一級別的兩個子物件中找到相同的代碼:
+* 如果在同一級別的兩個子物件中找到相同的程式碼:
   * 對兩個物件使用"Extract Method"，然後再使用 "Pull Up Field"。
-  * 如果重複的代碼在建構函數中，請使用"Pull Up Constructor Body"。
-  * 如果重複代碼相似但不完全相同，請使用“ 表單模板方法”。
+  * 如果重複的程式碼在建構函數中，請使用"Pull Up Constructor Body"。
+  * 如果重複程式碼相似但不完全相同，請使用“ 表單模板方法”。
   * 如果兩種方法做相同的事情，但使用不同的算法，選擇最好的算法，並應用替代算法。
-* 如果在兩個不同的物件中找到重複的代碼
+* 如果在兩個不同的物件中找到重複的程式碼
   * 如果這些物件不是層次結構的一部分，請使用 "Extract Superclass" 為這些物件創建一個父物件，這些物件將保留所有以前的功能。
-  * 如果難以或不可能創建父物件，請在一個物件中使用"Extract Class"，並在另一個物件中使用新組件。
-* 如果存在大量的條件表達式並執行相同的代碼（僅在它們的條件上不同），則使用"Consolidate Conditional Expression"合併條件表達式將這些運算符合併為單個條件，並使用"Extract Method"提取方法將條件置於單獨的方法中
-* 如果在條件表達式的所有分支中執行相同的代碼：通過使用"Consolidate Duplicate Conditional Fragments"，將相同的代碼放在條件樹之外。
+  * 如果難以或不可能創建父物件，請在一個物件中使用"Extract Class"，並在另一個物件中使用新元件。
+* 如果存在大量的條件表達式並執行相同的程式碼（僅在它們的條件上不同），則使用"Consolidate Conditional Expression"合併條件表達式將這些運算符合併為單個條件，並使用"Extract Method"提取方法將條件置於單獨的方法中
+* 如果在條件表達式的所有分支中執行相同的程式碼：通過使用"Consolidate Duplicate Conditional Fragments"，將相同的程式碼放在條件樹之外。
 
 
 # Lazy Class 懶惰物件
 
 也許一個物件被設計成功能完備，但是經過一些重構後，它變得非常小。或者也許是為了支持未來的開發工作而設計的。
 
-* 對於幾乎沒有用處的組件，應該給予Inline Class處理。
-* 對於功能較少的子類，請嘗試"Collapse Hierarchy"折疊層次結構。
+* 對於幾乎沒有用處的元件，應該給予Inline Class處理。
+* 對於功能較少的子物件，請嘗試"Collapse Hierarchy"折疊層次結構。
 
 
 # Data Class 資料物件
 
 當一個新創建的物件只包含一些公共欄位（甚至可能是一些getter / setter）時，這是正常的事情。但是物件的真正威力在於它們可以包含對數據的行為類型或操作。
 
-* 如果某個物件包含公共欄位，則使用封裝字段來隱藏它們，以避免直接訪問，並要求僅通過getter和setter來執行訪問。
+* 如果某個物件包含公共欄位，則使用封裝欄位來隱藏它們，以避免直接訪問，並要求僅通過getter和setter來執行訪問。
 * 使用"Encapsulate Collection" 封裝收藏存儲在集合（如數組）中的數據。
 
 
 
 # Dead Code 死掉的程式碼
 
-* 刪除未使用的代碼和不需要的文件。
+* 刪除未使用的程式碼和不需要的文件。
 * 在不必要的類的情況下，如果使用子物件或父物件，則可以應用"Inline Class" 或 "Collapse Hierarchy" 折疊層次結構。
 * 要刪除不需要的參數，請使用"Remove Parameter"。
 
 
 
-# Speculative Generality 投機性普遍性
+# Speculative Generality 投機普遍性
 有一個未使用的物件，方法，欄位或參數。
 
 * 要除去未使用的抽像物件，請嘗試"Collapse Hierarchy"折疊層次結構。
@@ -212,7 +212,7 @@
 > 密切關注花費太多時間在一起的物件。好的物件應該盡可能少地了解對方。這樣的物件更容易維護和重用。
 
 * 最簡單的解決方案是使用"Move Method"和 "Move Field"將一個物件的各個部分移動到使用這些部分的物件中。但是這只有在第一物件真的不需要這些部分時才起作用。
-* 另一個解決方案是在物件上使用 "Extract Class"和 "Hide Delegate" 來使代碼關係 “正式”。
+* 另一個解決方案是在物件上使用 "Extract Class"和 "Hide Delegate" 來使程式碼關係 “正式”。
 * 如果這些物件是相互依賴的，則應該使用 "更改雙向關聯到單向"。
 * 如果這個“親密關係”在子物件和父物件之間，考慮用 "Replace Delegation with Inheritance" 繼承替換委託。
 
@@ -220,7 +220,7 @@
 
 # Message Chains 消息鏈
 
-在代碼中，您會看到一系列類似的調用 $a->b()->c()->d()
+在程式碼中，您會看到一系列類似的呼叫 $a->b()->c()->d()
 
 * 要刪除消息鏈，請使用 "Hide Delegate" 隱藏委託。
 * 有時候最好考慮為什麼使用最終目標。也許這是有道理的使用"Extract Method"這個功能，透過使用"Move Method"並將其移動到鏈的開始。
@@ -255,7 +255,7 @@
 有兩種方法
 * 從相關物件創建一個子物件，包含方法並繼承父物件的所有其他物件。這種方式更容易，但有時被公開物件本身阻止（由於final）。
 
-* 創建一個包含所有新方法的新物件，其他地方將從實用物件中委託給相關對象。由於不僅需要維護包裝器和實用程序對象之間的關係的代碼，而且還需要大量簡單的委派方法來模擬實用程序類的公開接口，因此這種方法的工作量更大。
+* 創建一個包含所有新方法的新物件，其他地方將從實用物件中委託給相關對象。由於不僅需要維護包裝器和實用程序對象之間的關係的程式碼，而且還需要大量簡單的委派方法來模擬實用程序類的公開接口，因此這種方法的工作量更大。
 
 
 ---
@@ -294,7 +294,7 @@ class Report
 
 ---
 ## Remove Middle Man 移除中間人
-一個物件有太多的方法，只是委託給其他物件。最好是刪除這些方法並強制客戶端直接調用end方法。
+一個物件有太多的方法，只是委託給其他物件。最好是刪除這些方法並強制客戶端直接呼叫end方法。
 
 <img src="CodeSmell-Images/Remove-Middle-Man.png" width="50%"/>
 
@@ -325,8 +325,8 @@ class Report
 -----
 ## Hide Delegate 隱藏委託
 
-客戶端從物件А的欄位或方法獲取物件B. 然後客戶端調用物件B的方法
-應該要改為在物件A中創建一個新的方法，將調用委託給物件B.現在，對客戶端來說不知道或依賴於物件B。
+客戶端從物件А的欄位或方法獲取物件B. 然後客戶端呼叫物件B的方法
+應該要改為在物件A中創建一個新的方法，將呼叫委託給物件B.現在，對客戶端來說不知道或依賴於物件B。
 
 
 <img src="CodeSmell-Images/Hide-Delegate.png" width="60%" />
@@ -370,7 +370,7 @@ class Person
 ---
 ## Consolidate Duplicate Conditional Fragments 合併重複的條件片段
 
-相同的代碼可以在條件的所有分支中找到, 移動條件之外的代碼。
+相同的程式碼可以在條件的所有分支中找到, 移動條件之外的程式碼。
 ```
 if (IsSpecialDeal()) 
 {
@@ -489,8 +489,8 @@ string FoundPerson(string[] people)
 ---
 ## Pull Up Constructor Body 上拉建構函數體
 
-你的子物件具有代碼大致相同的構造函數。
-創建一個父類的構造函數，並將子物件中相同的代碼移動到它。調用子物件構造函數中的父物件構造函數。
+你的子物件具有程式碼大致相同的構造函數。
+創建一個父類的構造函數，並將子物件中相同的程式碼移動到它。呼叫子物件構造函數中的父物件構造函數。
 
 ```
 public class Manager: Employee 
@@ -529,9 +529,9 @@ public class Manager: Employee
 ---
 ## Introduce Assertion 引入斷言
 
-> 這裡的斷言測試是指使用 assert() 調用。
+> 這裡的斷言測試是指使用 assert() 呼叫。
 
-要使代碼的一部分正常工作，某些條件或值必須為真。
+要使程式碼的一部分正常工作，某些條件或值必須為真。
 將這些假設替換為特定的斷言檢查。
 
 ```
@@ -555,7 +555,7 @@ double GetExpenseLimit()
 }
 ```
 
-> 有時候，一個異常比一個簡單的斷言更合適。您可以選擇必要的異常類，並讓剩餘的代碼正確處理它。
+> 有時候，一個異常比一個簡單的斷言更合適。您可以選擇必要的異常類，並讓剩餘的程式碼正確處理它。
 
 > 什麼時候比一個簡單的斷言更好？如果異常可能是由用戶或系統的操作引起的，您可以處理異常。另一方面，普通的未命名和未處理的異常基本上等同於簡單的斷言 - 你不處理它們，它們完全是由於程序錯誤而導致的。
 
@@ -590,7 +590,7 @@ void RenderBanner()
 ```
 
 缺點
-> 你的代碼中有更多的變量。但是，這是通過輕鬆閱讀您的代碼來抵消的。
+> 你的程式碼中有更多的變量。但是，這是通過輕鬆閱讀您的程式碼來抵消的。
 
 
 
@@ -621,7 +621,7 @@ void RenderBanner()
 ---
 ## Introduce Null Object
 
-由於有些方法返回null而不是真實的對象，所以null在代碼中有許多檢查。返回一個空的物件，表現出默認的行為。
+由於有些方法返回null而不是真實的對象，所以null在程式碼中有許多檢查。返回一個空的物件，表現出默認的行為。
 
 ```
 if (customer == null) 
@@ -660,7 +660,7 @@ plan = customer.GetPlan();
 ---
 ## Replace Parameter with Explicit Methods 用顯式方法替換參數
 
-一個方法被分成幾個部分，每個部分根據參數的值運行。將方法的各個部分提取到自己的方法中，並調用它們而不是原始方法。
+一個方法被分成幾個部分，每個部分根據參數的值運行。將方法的各個部分提取到自己的方法中，並呼叫它們而不是原始方法。
 
 ```
 void SetValue(string name, int value) 
@@ -751,20 +751,21 @@ speed = bird.GetSpeed();
 ```
 
 ---
-## Move Method
+## Move Method 移動方法
+
 一個方法在另一個物件中比在自己的物件中更多地使用。
-在使用最多方法的物件中創建一個新方法，然後將代碼從舊方法移到那裡。將原始方法的代碼轉換為對其他物件中的新方法的引用，否則將其全部刪除。
+在使用最多方法的物件中創建一個新方法，然後將程式碼從舊方法移到那裡。將原始方法的程式碼轉換為對其他物件中的新方法的引用，否則將其全部刪除。
 
 <img src="CodeSmell-Images/Move-Method-Before.png" width="30%" />
 <img src="CodeSmell-Images/Move-Method-After.png" width="30%" />
 
 
 ---
-## Replace Parameter with Method Call
+## Replace Parameter with Method Call 用呼叫方法替換參數
 
-在方法調用之前，運行第二個方法，並將其結果作為參數發送回第一個方法。但是參數值可能是在被調用的方法內部獲得的。
+在方法呼叫之前，運行第二個方法，並將其結果作為參數發送回第一個方法。但是參數值可能是在被呼叫的方法內部獲得的。
 
-改成將值獲取代碼放在方法內。
+改成將值獲取程式碼放在方法內。
 
 ```
 int basePrice = quantity * itemPrice;
@@ -780,9 +781,9 @@ double finalPrice = DiscountedPrice(basePrice);
 
 
 ---
-## Replace Array with Object
+## Replace Array with Object 用物件替換陣列
 
-你有一個包含各種類型數據的數組。將數組替換為每個元素都有單獨字段的物件。
+你有一個包含各種類型數據的數組。將數組替換為每個元素都有單獨欄位的物件。
 
 ### Before
 ```
@@ -800,7 +801,7 @@ row.SetWins("15");
 ---
 ## Replace Type Code with Class 用物件替換類型
 
-一個物件有一個包含類型代碼的字段。這種類型的值不在操作員的條件下使用，也不影響程序的行為。
+一個物件有一個包含類型程式碼的欄位。這種類型的值不在操作員的條件下使用，也不影響程序的行為。
 
 <img src="CodeSmell-Images/Replace-Type-Code-with-Class-Before.png" width="30%" />
 
@@ -810,7 +811,7 @@ row.SetWins("15");
 ---
 ## Replace Type Code with Subclasses 用子物件替換類型
 
-您有一個直接影響程序行為的編碼類型（該字段的值會觸發條件中的各種代碼）。為編碼類型的每個值創建子類。然後將原始類的相關行為提取到這些子類中。用多態性替換控制流程代碼。
+您有一個直接影響程序行為的程式碼類型（該欄位的值會觸發條件中的各種程式碼）。為程式碼類型的每個值創建子物件。然後將原始物件的相關行為提取到這些子物件中。用多態性替換控制流程程式碼。
 
 <img src="CodeSmell-Images/Replace-Type-Code-with-Subclasses-Before.png" width="30%" />
 
@@ -818,24 +819,24 @@ row.SetWins("15");
 
 
 ---
-## Replace Type Code with State/Strategy 
+## Replace Type Code with State/Strategy 用狀態/策略替換類型
 
-你有一個編碼類型，影響行為，但你不能使用子物件來擺脫它。
-用狀態對象替換類型代碼。如果需要用類型代碼替換字段值，則另一個狀態對像被“插入”。
+你有一個程式碼類型，影響行為，但你不能使用子物件來擺脫它。
+用狀態對象替換類型程式碼。如果需要用類型程式碼替換欄位值，則另一個狀態對像被“插入”。
 
 <img src="CodeSmell-Images/Replace-Type-Code-with-State-Strategy-Before.png" width="30%" />
 
 <img src="CodeSmell-Images/Replace-Type-Code-with-State-Strategy-After.png" width="50%" />
 
 缺點
-> 如果你有一個簡單的類型代碼的情況，但是你總是使用這個重構技術，你將會有很多額外的（和不需要的）物件。
+> 如果你有一個簡單的類型程式碼的情況，但是你總是使用這個重構技術，你將會有很多額外的（和不需要的）物件。
 
 
 
 ---
 ## Extract Method 提取方法
 
-將此代碼移到一個單獨的新方法（或函數），並用該方法的調用替換舊代碼。
+將此程式碼移到一個單獨的新方法（或函數），並用該方法的呼叫替換舊程式碼。
 ### Before
 
 ```
@@ -935,7 +936,7 @@ bool withinPlan = plan.WithinRange(daysTempRange);
 ---
 ## Replace Method with Method Object 將方法替換為方法物件
 
-你有一個很長的方法，局部變量交織在一起，你不能應用提取方法(Extract Method)。就將該方法轉換為一個單獨的物件，以便局部變量成為該類的字段。然後你可以將該方法拆分成同一個物件中的幾個方法。
+你有一個很長的方法，局部變量交織在一起，你不能應用提取方法(Extract Method)。就將該方法轉換為一個單獨的物件，以便局部變量成為該類的欄位。然後你可以將該方法拆分成同一個物件中的幾個方法。
 
 ### Before
 ```
@@ -1014,7 +1015,7 @@ else
 ---
 ## Extract Class 提取為物件
 
-創建一個新的物件，並將負責相關功能的字段和方法放入其中。
+創建一個新的物件，並將負責相關功能的欄位和方法放入其中。
 如果你用這個重構技術“過度”，你將不得不求助於"Inline Class"。
 
 ### Before
@@ -1104,7 +1105,7 @@ class Person {
 ---
 ## Replace Data Value with Object 物件替換數據值
 
-一個物件（或一組物件）包含一個數據字段。該領域有自己的行為和相關的數據。創建一個新物件，將舊字段及其行為放在物件中，並將該物件的對象存儲在原始物件中。
+一個物件（或一組物件）包含一個數據欄位。該領域有自己的行為和相關的數據。創建一個新物件，將舊欄位及其行為放在物件中，並將該物件的對象存儲在原始物件中。
 
 ### Before
 <img src="CodeSmell-Images/Replace-Data-Value-with-Object-Before.png" width="40%"/>
