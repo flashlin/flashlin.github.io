@@ -619,7 +619,7 @@ void RenderBanner()
 <img src="CodeSmell-Images/Rename-Method.png" width="50%" />
 
 ---
-## Introduce Null Object
+## Introduce Null Object 引入空物件
 
 由於有些方法返回null而不是真實的對象，所以null在程式碼中有許多檢查。返回一個空的物件，表現出默認的行為。
 
