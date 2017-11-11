@@ -1,6 +1,6 @@
 # MyBlog
 
-Flash is producder of fun throught providing the most enjoying gaming experience 
+Flashlin is producer of fun throught providing the most enjoying gaming experience 
 to become a globally recognized super product developer.
 
 I deliver fun to humankind.
