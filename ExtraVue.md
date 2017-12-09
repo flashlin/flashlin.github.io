@@ -150,6 +150,45 @@ class MyVuexStore extends ExtraVue.VuexStore {
 
 > 注意state 裡面的Array 變數如果要改變, 不可以直接用arr[index] = newValue 方式指定, 要用arr.splice(index, 1, newValue); 方式指定
 
+在設計井字遊戲過程中, 遇到比較特別的是,
+我們常常會需要類似C# Dictionary<TKey,TValue>
+
+在Javascript/Typescript 世界裡沒辦法像C# 優雅的語法寫成
+
+```
+let PlaidDic = new Dictionary<DrawType, string>() {
+	{ DrawType.None: " "},
+	{ DrawType.Fork: "X"},
+	{ DrawType.Circle: "O"},
+};
+```
+
+雖然我們可以寫成下面方式
+```
+const PlaidDicTuples: any[][] = [
+	[DrawType.None, " "],
+	[DrawType.Fork, "X"],
+	[DrawType.Circle, "O"]
+];
+
+let PlaidDic = [];
+PlaidDicTuples.forEach(item=>{
+	PlaidDic[item[0]] = item[1];
+});
+
+return PlaidDic[DrawType.Fork];
+```
+
+但這樣卻得使用any[][] 容易打錯字又醜陋, 但我們可以透過t1 簡化成
+```
+const PlaidDic = t1.createDictionaryTable<DrawType, string>([
+	[DrawType.None, " "],
+	[DrawType.Fork, "X"],
+	[DrawType.Circle, "O"]
+]);
+
+return PlaidDic[DrawType.Fork];
+```
 
 完整原始碼在此 [App.ts](/ExtraVue-Images/App.ts)
 
