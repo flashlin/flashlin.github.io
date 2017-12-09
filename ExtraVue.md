@@ -1,4 +1,5 @@
 # 用ExtraVuex 寫TicTacToe 井字遊戲
+2017/12/09
 
 <img src="ExtraVue-Images/Tic.gif" />
 
@@ -62,6 +63,29 @@ let appTemplate = `
 </div>
 `;
 ```
+
+透過上述的v-for 迴圈指令, 可以簡化下面重複的HTML 碼
+```
+<tbody>
+	<tr>
+		<td @click="clickPlaid(0,0)">{{ ticMatrix[0][0] }}</td>
+		<td @click="clickPlaid(0,1)">{{ ticMatrix[0][1] }}</td>
+		<td @click="clickPlaid(0,2)">{{ ticMatrix[0][2] }}</td>
+	</tr>
+	<tr>
+		<td @click="clickPlaid(1,0)">{{ ticMatrix[1][0] }}</td>
+		<td @click="clickPlaid(1,1)">{{ ticMatrix[1][1] }}</td>
+		<td @click="clickPlaid(1,2)">{{ ticMatrix[1][2] }}</td>
+	</tr>
+	<tr>
+		<td @click="clickPlaid(2,0)">{{ ticMatrix[2][0] }}</td>
+		<td @click="clickPlaid(2,1)">{{ ticMatrix[2][1] }}</td>
+		<td @click="clickPlaid(2,2)">{{ ticMatrix[2][2] }}</td>
+	</tr>
+</tbody>
+```
+
+> 注意Vue 1.0 的v-for="x in 3" 是從0 開始, 而Vue 2.0以後則是從1 開始
 
 為了讓HTML Table 大小固定, 就在Index.cshtml 中加上Style
 ```
