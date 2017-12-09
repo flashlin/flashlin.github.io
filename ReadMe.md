@@ -9,9 +9,3 @@ by challenging the convertional.
 
 I commit to my responibilty toward the society and my stakeholders.
 
-<script>
-function test(){
-	alert('Hello');
-}
-</script>
-<button onclick='test()'>TEST<button>
