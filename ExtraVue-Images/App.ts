@@ -2,40 +2,8 @@
 import * as Vue from "vue";
 import * as ExtraVue from "ExtraVue";
 import * as t1 from "t1";
-//import Mutations = require("Js/VuexDemo/Mutations");
 
-//Vue.config.devtools = false;
-//Vue.config.debug = false;
 Vue.use(VueRouter);
-
-let appTemplate1 = `
-<div>
-	<span>井字遊戲</span>
-	<br/>
-	<button @click="startNewGame()">開始新遊戲</button>
-	<br />
-	<table class="table table-bordered TicTac" style="width:100px">
-		<tbody>
-			<tr>
-				<td @click="clickPlaid(0,0)">{{ ticMatrix[0][0] }}</td>
-				<td @click="clickPlaid(0,1)">{{ ticMatrix[0][1] }}</td>
-				<td @click="clickPlaid(0,2)">{{ ticMatrix[0][2] }}</td>
-			</tr>
-			<tr>
-				<td @click="clickPlaid(1,0)">{{ ticMatrix[1][0] }}</td>
-				<td @click="clickPlaid(1,1)">{{ ticMatrix[1][1] }}</td>
-				<td @click="clickPlaid(1,2)">{{ ticMatrix[1][2] }}</td>
-			</tr>
-			<tr>
-				<td @click="clickPlaid(2,0)">{{ ticMatrix[2][0] }}</td>
-				<td @click="clickPlaid(2,1)">{{ ticMatrix[2][1] }}</td>
-				<td @click="clickPlaid(2,2)">{{ ticMatrix[2][2] }}</td>
-			</tr>
-		</tbody>
-   </table>
-	<span>{{ $store.state.message }}</span>
-</div>
-`;
 
 let appTemplate = `
 <div>
