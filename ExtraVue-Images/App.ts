@@ -91,7 +91,6 @@ class MyApp extends ExtraVue.VueApp {
 		this.action(GameActionType[GameActionType.ClickPlaid], Pos(x, y));
 	}
 
-	//@ExtraVue.VueData()
 	@ExtraVue.VueComputed()
 	ticMatrix(): string[][] {
 		let state = this.storeState as MyState;
@@ -158,6 +157,15 @@ class TicMatrix {
 		}
 		return noneCount > 0;
 	}
+
+	isPlayer(pos: Position, p: Player): boolean {
+		return (this.ticMatrixData[pos.x][pos.y].type === p.type);
+	}
+
+	replace(pos: Position, val: Player) {
+		let items = this.ticMatrixData[pos.x];
+		items.splice(pos.y, 1, val);
+	}
 }
 
 class MyVuexStore extends ExtraVue.VuexStore {
@@ -190,8 +198,8 @@ class MyVuexStore extends ExtraVue.VuexStore {
 	}
 
 	@ExtraVue.VuexActionMutation(GameActionType[GameActionType.ClickPlaid])
-	clickPlaid(commit, args: Position) {
-		console.log("clickPlaid", args.x, args.y);
+	clickPlaid(commit, pos: Position) {
+		console.log("clickPlaid", pos.x, pos.y);
 		let self = this;
 
 		commit((state: MyState) => {
@@ -202,29 +210,15 @@ class MyVuexStore extends ExtraVue.VuexStore {
 				return;
 			}
 
-			if (self.isPlayerEquals(state.ticMatrix[args.x][args.y], EmptyPlayer)) {
+			let ticMatrix = new TicMatrix(state.ticMatrix);
+			if (ticMatrix.isPlayer(pos, EmptyPlayer)) {
 				let player = self.getCurrentPlayer();
-				self.replaceTicMatrix(state, Pos(args.x, args.y), player);
+				ticMatrix.replace(pos, player);
 				player = self.nextPlayer();
 				state.message = `換 ${player.name} 下手`;
 				self.checkGameResult(state);
 			}
 		});
-	}
-
-	protected isPlayerEquals(p1: Player, p2: Player): boolean {
-		return (p1.type === p2.type);
-	}
-
-	protected isEmptyArea(player: Player) {
-		if (player == null) return true;
-		if (player === EmptyPlayer) return true;
-		return false;
-	}
-
-	replaceTicMatrix(state: MyState, pos: Position, val: Player) {
-		let items = state.ticMatrix[pos.x];
-		items.splice(pos.y, 1, val);
 	}
 
 	_winGroup: Position[][] = [
@@ -246,7 +240,7 @@ class MyVuexStore extends ExtraVue.VuexStore {
 
 			var a = ticMatrix.getPlayer(posLine[0]);
 
-			if (ticMatrix.isLineSame(posLine) ){
+			if (ticMatrix.isLineSame(posLine)) {
 				state.message = `${a.name} 勝利`;
 				state.isGameOver = true;
 				console.log(this.state, "勝利");
