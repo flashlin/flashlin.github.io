@@ -1,9 +1,8 @@
-<!-- .slide: data-background="#000000" -->
+
 # Corona SDK
 ### Flash Master
 
 ------
-<!-- .slide: data-background="#000000" -->
 ### Create Image
 ```
 local player = display.newImageRect("images/player.png", 
@@ -11,7 +10,6 @@ local player = display.newImageRect("images/player.png",
 ```
 
 ------
-<!-- .slide: data-background="#000000" -->
 ### Set Image Position
 ```
 player.x = 100
@@ -19,7 +17,6 @@ player.y = 200
 ```
 
 ------
-<!-- .slide: data-background="#000000" -->
 ### Move Image
 ```
 transition.to(player, { 
@@ -31,7 +28,6 @@ transition.to(player, {
 ```
 
 ------
-<!-- .slide: data-background="#000000" -->
 ### Create function
 ```
 local count = 0
@@ -40,8 +36,7 @@ local function Test()
 end
 ```
 
------
-<!-- .slide: data-background="#000000" -->
+------
 ### Animation -- Set Option
 ```
 local sheetOptions = {
@@ -54,7 +49,6 @@ local sheetOptions = {
 ```
 
 ------
-<!-- .slide: data-background="#000000" -->
 ### Animation - Create Sprite
 ```
 local playerSheet = graphics.newImageSheet("sheet.png", 
@@ -73,7 +67,6 @@ local playerSprite = {
 ```
 
 ------
-<!-- .slide: data-background="#000000" -->
 ### Animation - Play Sprite
 ```
 local player = display.newSprite(playerSheet, playerSprite)
@@ -82,7 +75,6 @@ player:play()
 ```
 
 ------
-<!-- .slide: data-background="#000000" -->
 ### Set Gravity
 ```
 local physics = require("physics")
@@ -92,7 +84,6 @@ physics.setGravity(0, 20)
 
 
 ------
-<!-- .slide: data-background="#000000" -->
 ### Set player affected by Gravity
 ```
 physics.addBody(player, "dynamic", { bounce=0 })
