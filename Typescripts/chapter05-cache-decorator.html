@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>快取裝飾器 Cache Decorator | Flash&#39;s BLOG</title>
+    <meta name="description" content="對於我這種只有一點點知識又沒錢的傢伙只好自行徒手建立這BLOG">
+    
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.8e755006.css" as="style"><link rel="preload" href="/blog/assets/js/app.9ca61cd2.js" as="script"><link rel="preload" href="/blog/assets/js/2.ed8abbfc.js" as="script"><link rel="preload" href="/blog/assets/js/29.94f8c8c8.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.e739b01c.js"><link rel="prefetch" href="/blog/assets/js/11.98e4feac.js"><link rel="prefetch" href="/blog/assets/js/12.675ace53.js"><link rel="prefetch" href="/blog/assets/js/13.b5737ebf.js"><link rel="prefetch" href="/blog/assets/js/14.4b6dbf6b.js"><link rel="prefetch" href="/blog/assets/js/15.d90406bf.js"><link rel="prefetch" href="/blog/assets/js/16.86e2395a.js"><link rel="prefetch" href="/blog/assets/js/17.635180c4.js"><link rel="prefetch" href="/blog/assets/js/18.281d9d19.js"><link rel="prefetch" href="/blog/assets/js/19.f0d2ed8f.js"><link rel="prefetch" href="/blog/assets/js/20.348ecd77.js"><link rel="prefetch" href="/blog/assets/js/21.f911f00a.js"><link rel="prefetch" href="/blog/assets/js/22.94c45d13.js"><link rel="prefetch" href="/blog/assets/js/23.b362a894.js"><link rel="prefetch" href="/blog/assets/js/24.1874b31c.js"><link rel="prefetch" href="/blog/assets/js/25.04bee451.js"><link rel="prefetch" href="/blog/assets/js/26.18bc6cc1.js"><link rel="prefetch" href="/blog/assets/js/27.9e4f28ae.js"><link rel="prefetch" href="/blog/assets/js/28.dc3b4330.js"><link rel="prefetch" href="/blog/assets/js/3.abd2c393.js"><link rel="prefetch" href="/blog/assets/js/30.c1a0cc9e.js"><link rel="prefetch" href="/blog/assets/js/31.d9888b99.js"><link rel="prefetch" href="/blog/assets/js/32.d112d712.js"><link rel="prefetch" href="/blog/assets/js/33.4c57a876.js"><link rel="prefetch" href="/blog/assets/js/34.5c76547b.js"><link rel="prefetch" href="/blog/assets/js/35.b6373288.js"><link rel="prefetch" href="/blog/assets/js/36.58c85b15.js"><link rel="prefetch" href="/blog/assets/js/4.7f1bc4ba.js"><link rel="prefetch" href="/blog/assets/js/5.a0def24f.js"><link rel="prefetch" href="/blog/assets/js/6.b332c683.js"><link rel="prefetch" href="/blog/assets/js/7.362b20d2.js"><link rel="prefetch" href="/blog/assets/js/8.7cfcf1d3.js"><link rel="prefetch" href="/blog/assets/js/9.929138f1.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.8e755006.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><!----> <span class="site-name">Flash's BLOG</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link">Home</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link">Home</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Home</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Typescripts</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/Typescripts/chapter00-readme.html" class="sidebar-link">Typescripts</a></li><li><a href="/blog/Typescripts/chapter01-curring.html" class="sidebar-link">Curring 柯里化</a></li><li><a href="/blog/Typescripts/chapter02-override-functions.html" class="sidebar-link">多載函數</a></li><li><a href="/blog/Typescripts/chapter03-generic-curring.html" class="sidebar-link">泛型柯里化</a></li><li><a href="/blog/Typescripts/chapter04-pure-function.html" class="sidebar-link">純函數</a></li><li><a href="/blog/Typescripts/chapter05-cache-decorator.html" class="active sidebar-link">快取裝飾器 Cache Decorator</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>設計守則</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>錯誤集錦</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="快取裝飾器-cache-decorator"><a href="#快取裝飾器-cache-decorator" aria-hidden="true" class="header-anchor">#</a> 快取裝飾器 Cache Decorator</h1> <p>之前的 memoize 快取函數是簡單閉包(Closure)的應用方式, 你可以試試動手做, 幫 memoize 函數加上快取過期時間, 或者觸發回應快取內容變更事件, 甚至增加建立快取使用不同的儲存媒體方式儲存.</p> <h3 id="裝飾器-decorators"><a href="#裝飾器-decorators" aria-hidden="true" class="header-anchor">#</a> 裝飾器 Decorators</h3> <p>Typescript 的裝飾器Decorators 就像C# 的Attribute , 它可以實現AOP 面向切面編程開發, 不修改原來的程式碼的前提下, 給原來的程式碼增加額外的功能.</p> <p>想要用Typescript 裝飾器, 必須修改tsconfig.json 參數如下</p> <div class="language- extra-class"><pre class="language-text"><code>{
+   &quot;compilerOptions&quot;: {
+      &quot;target&quot;: &quot;es5&quot;,
+      &quot;emitDecoratorMetadata&quot;: true,
+      &quot;experimentalDecorators&quot;: true
+   }
+}
+</code></pre></div><p>首先Typescript 建立裝飾器的方式必須是回傳函數, 以下是方法裝飾器的典型範例</p> <div class="language- extra-class"><pre class="language-text"><code>function CustomDecorator() {
+   return (target: object, methodName: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor =&gt; {
+      ...
+      return descriptor;
+   };
+}
+</code></pre></div><p>方法裝飾器函數提供三個參數</p> <ul><li>target 類別(Class) 的原型定義或是方法的構造函數</li> <li>methodName 成員函數的名稱</li> <li>descriptor 成員的屬性描述</li></ul> <p>首先我們來建立快取(Cache) 裝飾器, 以下示範我們是如何實作的</p> <div class="language- extra-class"><pre class="language-text"><code>function CacheDecorator() {
+   return (target: object, methodName: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor =&gt; {
+      if (!descriptor.hasOwnProperty('set') &amp;&amp; descriptor.value) {
+         descriptor.value = createCacheDecorator(target, descriptor.value);
+      } else {
+         throw new Error(`Can't set cache decorator on a non-method`);
+      }
+      return descriptor;
+   };
+}
+</code></pre></div><p>首先CacheDecorator 裡面檢查成員名稱是否為非 'set' 開頭, 並且是否有提供 method 資訊</p> <div class="language- extra-class"><pre class="language-text"><code>if (!descriptor.hasOwnProperty('set') &amp;&amp; descriptor.value) {
+   ...
+}
+</code></pre></div><p>如果是的話, 就建立新的方法取代原本物件的方法定義</p> <div class="language- extra-class"><pre class="language-text"><code>descriptor.value = createCacheDecorator(target, descriptor.value);
+</code></pre></div><p>如同之前的 memoize 函數, 同樣地我們建立 CacheDecorator 閉包函數</p> <div class="language- extra-class"><pre class="language-text"><code>function createCacheDecorator(target: object, method: (...args) =&gt; any): () =&gt; any {
+   const cache: {} = {};
+   return function(...args: any[]): any {
+      const argsKey: string = JSON.stringify(args);
+      if( !cache.hasOwnProperty(argsKey) ){
+         const res = method.call(this, ...args);
+         cache[argsKey] = res;
+         return res;
+      }
+      return cache[argsKey];
+   };
+}
+</code></pre></div><p>然後我們用新的 CacheDecorator 閉包函數取代物件中原本的方法.</p> <div class="language- extra-class"><pre class="language-text"><code>descriptor.value = createCacheDecorator(target, descriptor.value);
+</code></pre></div><p>假設你企圖在物件裡, 用我們實作的 CacheDecorator 裝飾器類別, 掛載在屬性上</p> <div class="language- extra-class"><pre class="language-text"><code>class SomeClass {
+   @CacheDecorator()
+   id: number = 1;
+}
+</code></pre></div><p>Typescript 將會顯示以下錯誤訊息</p> <div class="language- extra-class"><pre class="language-text"><code>Unable to resolve signature of property decorator when called as an expression.
+</code></pre></div><p>現在我們可以在任何物件中的任何方法, 掛載這個 CacheDecorator 裝飾器</p> <div class="language- extra-class"><pre class="language-text"><code>class User {
+   @CacheDecorator()
+   add(a: number, b: number): number {
+      return a + b;
+   }
+}
+</code></pre></div><p>這是多麼酷炫的應用, 可以讓我們不改變已現有的程式碼內容, 再加上具有快取(Cache) 的功能.</p> <h3 id="物件導向的-多重繼承-解"><a href="#物件導向的-多重繼承-解" aria-hidden="true" class="header-anchor">#</a> 物件導向的 &quot;多重繼承&quot; 解</h3> <p>Typescript 的物件類別只能單一繼承, 因此你不能這樣做</p> <div class="language- extra-class"><pre class="language-text"><code>class Plyaer extends Human, Animal {
+    ...
+}
+</code></pre></div><p>Typescript 會告知你, 物件不能夠多重繼承</p> <div class="language- extra-class"><pre class="language-text"><code>Classes can only extend a single class.
+</code></pre></div><p>但我們可以利用另一種方式來建構它們, 這種方式稱為混合(Mixins).</p> <p>首先必須建立建構元類型</p> <div class="language- extra-class"><pre class="language-text"><code>type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
+</code></pre></div><p>然後我們提供一個為某個物件類型增加 address 屬性的方法</p> <div class="language- extra-class"><pre class="language-text"><code>function AddAddress&lt;TBase extends Constructor&gt;(base: TBase) {
+    return class extends base {
+        address: string = &quot;&quot;;
+    }
+}
+</code></pre></div><p>AddAddress 方法會另外產生新的物件類型並繼承 base, 再回傳這個新的物件類型.</p> <p>於是我們就可以這樣使用... 幫 User 類型增加 address 屬性</p> <div class="language- extra-class"><pre class="language-text"><code>class User {
+    name: string = &quot;flash&quot;;
+}
+
+const AddressUser = AddAddresses(User);
+
+let obj = new AddressUser();
+console.log(obj.address);
+</code></pre></div><p>同樣地我們也能為物件類別增加方法</p> <div class="language- extra-class"><pre class="language-text"><code>function AddSayHello&lt;TBase extends Constructor&gt;(base: TBase) {
+    return class extends base {
+        sayHello(msg: string): void {
+            console.log(&quot;hello &quot; + msg);
+        }
+    }
+}
+
+const UserCanSayHello = AddSayHello(User);
+
+let obj = new UserCanSayHello();
+console.log(obj.sayHello());
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blog/Typescripts/chapter04-pure-function.html" class="prev">純函數</a></span> <span class="next"><a href="/blog/設計守則/CodeSmell.html">程式碼的壞味道</a>→
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/blog/assets/js/app.9ca61cd2.js" defer></script><script src="/blog/assets/js/2.ed8abbfc.js" defer></script><script src="/blog/assets/js/29.94f8c8c8.js" defer></script>
+  </body>
+</html>
