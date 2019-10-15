@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Typescript 與 Javascript Proxy 和 Reflect 搭配 | Flash&#39;s BLOG</title>
+    <meta name="description" content="對於我這種只有一點點知識又沒錢的傢伙只好自行徒手建立這BLOG">
+    
+    
+    <link rel="preload" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css" as="style"><link rel="preload" href="/flashlin.github.io/assets/js/app.2e2385ec.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/2.d3d2ff54.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/31.22fdf800.js" as="script"><link rel="prefetch" href="/flashlin.github.io/assets/js/10.a6e74b71.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/11.10b8376f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/12.728fff49.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/13.9da240bd.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/14.5f3a4493.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/15.78feffd8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/16.cca66b34.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/17.7d2dbc3e.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/18.7c504885.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/19.1bd7c19f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/20.1aaa4c40.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/21.dda26395.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/22.9b2ba406.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/23.9fdbf53a.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/24.6078a107.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/25.a671ced4.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/26.596c803a.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/27.1d5b906f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/28.dcc74b15.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/29.c23db5a0.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/3.e5c122e8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/30.1df98107.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/32.fe02e270.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/33.685e5ddb.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/34.fca26ae0.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/35.3ff115dd.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/36.9bce7933.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/37.a8d169a6.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/38.6f91b76c.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/4.4c1de031.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/5.bc3d4d9d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/6.a1cff6d7.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/7.d69e1d6f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/8.2fa94668.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/9.0b0cf932.js">
+    <link rel="stylesheet" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/flashlin.github.io/" class="home-link router-link-active"><!----> <span class="site-name">Flash's BLOG</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Home</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DotNet-Core</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Typescripts</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/flashlin.github.io/Typescripts/chapter00-readme.html" class="sidebar-link">Typescripts</a></li><li><a href="/flashlin.github.io/Typescripts/chapter01-curring.html" class="sidebar-link">Curring 柯里化</a></li><li><a href="/flashlin.github.io/Typescripts/chapter02-override-functions.html" class="sidebar-link">多載函數</a></li><li><a href="/flashlin.github.io/Typescripts/chapter03-generic-curring.html" class="sidebar-link">泛型柯里化</a></li><li><a href="/flashlin.github.io/Typescripts/chapter04-pure-function.html" class="sidebar-link">純函數</a></li><li><a href="/flashlin.github.io/Typescripts/chapter05-cache-decorator.html" class="sidebar-link">快取裝飾器 Cache Decorator</a></li><li><a href="/flashlin.github.io/Typescripts/chapter06-Js-Proxy-Reflect.html" class="active sidebar-link">Typescript 與 Javascript Proxy 和 Reflect 搭配</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>設計守則</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>錯誤集錦</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="typescript-與-javascript-proxy-和-reflect-搭配"><a href="#typescript-與-javascript-proxy-和-reflect-搭配" aria-hidden="true" class="header-anchor">#</a> Typescript 與 Javascript Proxy 和 Reflect 搭配</h1> <p>2019-10-15</p> <h2 id="javascript-的-proxy-物件-reflect-api"><a href="#javascript-的-proxy-物件-reflect-api" aria-hidden="true" class="header-anchor">#</a> Javascript 的 Proxy 物件 &amp; Reflect API</h2> <p>下面表格是 Proxy 物件在各種瀏覽器版本中的支援程度, 資料參考來源從  <a href="https://caniuse.com/#feat=proxy" target="_blank" rel="noopener noreferrer">caniuse<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 網站取得</p> <table><thead><tr><th>Browser</th> <th>Support Version</th></tr></thead> <tbody><tr><td>IE</td> <td><s>6</s> - <s>10</s>, <s>11</s></td></tr> <tr><td>Edge</td> <td>12-18, 76</td></tr> <tr><td>Firefox</td> <td>18-68, 69</td></tr> <tr><td>Chrome</td> <td>49-76, 77</td></tr> <tr><td>Safari</td> <td>10-12.1, 13</td></tr> <tr><td>Opera</td> <td>36-60, 62</td></tr> <tr><td>iOS Safari</td> <td>10-12.3, 13.1</td></tr> <tr><td>Opera Mini</td> <td>All Not support</td></tr> <tr><td>Android Browser</td> <td>76</td></tr> <tr><td>Opera Mobile</td> <td>46</td></tr> <tr><td>Chrome for Android</td> <td>76</td></tr> <tr><td>Firefox for Android</td> <td>68</td></tr> <tr><td>UC Browser for Android</td> <td>12.12</td></tr> <tr><td>Samsung Internet</td> <td>5-9.2, 10.1</td></tr> <tr><td>QQ Browser</td> <td><s>1.2</s></td></tr> <tr><td>Baidu Browser</td> <td><s>7.12</s></td></tr> <tr><td>KaiOS Browser</td> <td>2.5</td></tr></tbody></table> <blockquote><p>以上版本號碼有刪除的樣式, 表示不支援</p></blockquote> <p>Proxy 和Reflect 是ES6 新增的API, Proxy 是一個函式物件, 它提供一個機會讓你能介入一般物件的基本操作行為, 很像 interceptor 會做的事情一樣.</p> <p>使用的方法如下</p> <div class="language- extra-class"><pre class="language-text"><code>const proxyObj = new Proxy(target, handler);
+</code></pre></div><ul><li>target 就是你想要代理的對象</li> <li>handler 則是一個物件, 定義了所有你想替 target 代為管理的操作定義</li></ul> <p>以下是一個典型的範例, 示範了 cat 物件被代理成 catProxy 物件, 然後不能存取私有變數的方法.</p> <div class="language- extra-class"><pre class="language-text"><code>let cat = {
+  _secret: 'I am Mr.Brain',
+  name: 'Flash'
+};
+
+let catProxy = new Proxy(cat, {
+  get: function (target, prop) {
+     if( prop.startsWith('_') ) {
+        console.log('不能存取私有變數');
+        return false;
+     }
+     return target[prop];
+  },
+  set: function (target, prop, value) {
+    if (prop.startsWith('_')) {
+      console.log('不能修改私有變數');
+      return false;
+    }
+    target[prop] = value;
+  },
+  has: function (target, prop) {
+    return prop.startsWith('_') ? false : (prop in target);
+  }
+});
+</code></pre></div><h2 id="不是什麼都可以被代理的"><a href="#不是什麼都可以被代理的" aria-hidden="true" class="header-anchor">#</a> 不是什麼都可以被代理的</h2> <p>如果你的物件擁有 configurable: false 與 writable: false 的屬性，那該物件就無法被 proxy 代理, 如下示範</p> <div class="language- extra-class"><pre class="language-text"><code>const target = Object.defineProperties({}, {
+  Cat: {
+    writable: false,
+    configurable: false
+  },
+});
+
+const handler = {
+  get(target, propKey) {
+    return '???';
+  }
+};
+
+const proxy = new Proxy(target, handler);
+proxy.FooBar
+// Uncaught TypeError: 'get' on proxy: property 'FooBar' is a read-only and non-configurable data property on the proxy target but the proxy did not return its actual value (expected 'undefined' but got '???')
+</code></pre></div><h2 id="reflect-與-proxy-的搭配"><a href="#reflect-與-proxy-的搭配" aria-hidden="true" class="header-anchor">#</a> Reflect 與 Proxy 的搭配</h2> <p>我們在 Proxy 中, 如果需要 target 物件的預設操作, 使用 Reflect 會更清楚, 如下示範</p> <div class="language- extra-class"><pre class="language-text"><code>const loggedObj = new Proxy(obj, {
+  get: function(target, name) {
+    console.log(&quot;get&quot;, target, name);
+    return Reflect.get(target, name);
+  }
+});
+</code></pre></div><p>以上是property 的proxy, 下面是method proxy 示範</p> <div class="language- extra-class"><pre class="language-text"><code>let cat = {
+	name: &quot;Kitty&quot;,
+	method1: function(msg){
+		console.log(&quot;cat: &quot; + this.name + &quot; say &quot; + msg);
+	},
+};
+
+var catProxy = new Proxy(cat, {
+	get: function(target, propKey, receiver){
+		//我只要攔截方法(method calls), 不要屬性(property access)
+		var propValue = target[propKey];
+		if (typeof propValue != &quot;function&quot;){
+			return propValue;
+		}
+		else{
+			return function() {
+				console.log(&quot;intercepting call to &quot; + propKey + &quot; in cat &quot; + target.name);
+				//&quot;this&quot; 指向 proxy, 就像&quot;receiver&quot;
+				return propValue.apply(this, arguments);
+			}
+		}
+	}
+});
+</code></pre></div><p>以上Proxy 的概念性, 在沒有ES6 語法之前, 使用Typescript 撰寫 &quot;裝飾者模式&quot; 就可以做到, 如下所示</p> <div class="language- extra-class"><pre class="language-text"><code>interface ICat { 
+   sayHello(msg: string): void;
+}
+
+class RealCat implements ICar {
+   public sayHello(msg: string): void {
+      console.log('RealCat: ' + msg);
+   }
+}
+
+class CatProxy implements ICat {
+   private _realCat: RealCat;
+
+   constructor(realCat: RealCat) {
+      this._realCat = realCat;
+   }
+
+   public sayHello(msg: string): void {
+      console.log(&quot;Hey! I am Kitty&quot;);
+      this._realCat.sayHello(msg);
+   }
+}
+
+let catProxy = new CatProxy(new RealCat());
+catProxy.sayHello(&quot;Hello Proxy World&quot;);
+</code></pre></div><h2 id="typescript-與-proxy-reflect-搭配"><a href="#typescript-與-proxy-reflect-搭配" aria-hidden="true" class="header-anchor">#</a> Typescript 與 Proxy &amp; Reflect 搭配</h2> <p>使用上述的裝飾者模式時候, 假如 ICat 介面中的方法和屬性加起來有100 個, 你就得在 CatProxy 一一實作包裝並呼叫 _realCat.</p> <p>但你又是個懶人不想一一手動去實作, 你可以用 Proxy 和 Reflect 來幫忙實作每一個 ICat 的公開方法和屬性, 如下示範Typescript 程式碼是如何做到這件事情</p> <div class="language- extra-class"><pre class="language-text"><code>function fakeBaseClass&lt;T&gt;() : new() =&gt; Pick&lt;T, keyof T&gt; { 
+   return class {} as any;
+}
+
+class CatProxy extends fakeBaseClass&lt;RealCat&gt;() { 
+   private _realCat: RealCat;
+   constructor(cat: RealCat) {
+      super();
+      this._realCat = cat;
+      let handler = {
+         get: function(target: CatProxy, prop: keyof RealCat, receiver: any) {
+            if(RealCat.prototype[prop] !== null) {
+               return target._realCat[prop];
+            }
+            return Reflect.get(target, prop, receiver);
+         }
+      };
+      return new Proxy(this, handler);
+   }
+}
+</code></pre></div><p>如此一來你可以開始只複寫(override) ICat 介面其中一部分的方法或屬性.</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/flashlin.github.io/Typescripts/chapter05-cache-decorator.html" class="prev">快取裝飾器 Cache Decorator</a></span> <span class="next"><a href="/flashlin.github.io/設計守則/CodeSmell.html">程式碼的壞味道</a>→
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/flashlin.github.io/assets/js/app.2e2385ec.js" defer></script><script src="/flashlin.github.io/assets/js/2.d3d2ff54.js" defer></script><script src="/flashlin.github.io/assets/js/31.22fdf800.js" defer></script>
+  </body>
+</html>
