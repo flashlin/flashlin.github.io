@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Docker Swarm Mode | Flash&#39;s BLOG</title>
+    <meta name="description" content="對於我這種只有一點點知識又沒錢的傢伙只好自行徒手建立這BLOG">
+    
+    
+    <link rel="preload" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css" as="style"><link rel="preload" href="/flashlin.github.io/assets/js/app.d6d31a8a.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/2.a0c46ff0.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/13.f3254438.js" as="script"><link rel="prefetch" href="/flashlin.github.io/assets/js/10.d1978d11.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/11.74842217.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/12.570cca1a.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/14.f5714b8d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/15.ddfd2a7d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/16.3e1aa1f7.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/17.7df842fe.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/18.0a5e8379.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/19.4805f546.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/20.1c778918.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/21.f457c598.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/22.c530dcd0.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/23.63e5c60f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/24.08234543.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/25.3d55c258.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/26.09f41cdc.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/27.be0ec4c9.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/28.ce741413.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/29.67c14f0f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/3.beb188ba.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/30.549cc741.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/31.6300e0d8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/32.f7ae1dc8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/33.cba52309.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/34.9c997a6d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/35.43c18bc6.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/36.a9d0a819.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/37.aeeb6fbf.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/38.c09d9984.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/39.25a1a381.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/4.1f08992d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/40.55a904c1.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/41.decb5cd1.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/42.550cc419.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/43.fc73dac4.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/5.62067504.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/6.db739c78.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/7.bea60683.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/8.b5dfa2b5.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/9.583981fc.js">
+    <link rel="stylesheet" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/flashlin.github.io/" class="home-link router-link-active"><!----> <span class="site-name">Flash's BLOG</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Home</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Docker</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/flashlin.github.io/Docker/20191020-1700-Docker-Swarm-Mode.html" class="active sidebar-link">Docker Swarm Mode</a></li><li><a href="/flashlin.github.io/Docker/Docker.html" class="sidebar-link">Docker</a></li><li><a href="/flashlin.github.io/Docker/Docker-Linux.html" class="sidebar-link">Install Docker on Linux Mint 18</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DotNet-Core</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DotNet</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Typescripts</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>設計守則</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>錯誤集錦</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="docker-swarm-mode"><a href="#docker-swarm-mode" aria-hidden="true" class="header-anchor">#</a> Docker Swarm Mode</h1> <p>需要三台主機, 這些主機。這些可以是物理機/虛擬機, 也能通過網絡進行通信. 您甚至可以在筆電上安裝Docker Machine 來替代物理機/虛擬機.</p> <p>在每台主機上都需要Docker Engine 1.12或更高版本(內建Swarm Mode)</p> <p><a href="https://docs.docker.com/engine/swarm/swarm-tutorial/#install-docker-engine-on-linux-machines" target="_blank" rel="noopener noreferrer">Linux Docker Engine<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://docs.docker.com/engine/swarm/swarm-tutorial/#use-docker-for-mac-or-docker-for-windows" target="_blank" rel="noopener noreferrer">Windows Docker Desktop<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <blockquote><p>Docker Engine 和Docker Machine 區別?</p> <p>人們說&quot;Docker&quot;時, 通常指的是Docker Engine, Docker Machine 是用於置備和管理Dockerized 主機(帶有Docker Engine 工具的主機)</p></blockquote> <p>其中一台機器是管理員(稱為manager1), 其中兩台機器是工人(worker1和worker2).</p> <h2 id="主機之間的開放協議和端口"><a href="#主機之間的開放協議和端口" aria-hidden="true" class="header-anchor">#</a> 主機之間的開放協議和端口</h2> <p>以下通訊阜必須可用</p> <ul><li>用於群集管理通信的TCP端口 2377</li> <li>TCP和UDP端口 7946, 用於節點之間的通信</li> <li>UDP端口4789, 用於覆蓋網絡流量</li></ul> <blockquote><p>如果計劃使用加密（--opt encrypted）創建覆蓋網絡, 則還需要確保允許ip協議50（ESP）流量。</p></blockquote> <h2 id="建立一個集群"><a href="#建立一個集群" aria-hidden="true" class="header-anchor">#</a> 建立一個集群</h2> <p>設定 manager1: 192.168.99.100</p> <p>在 manager1 上打開命令視窗, 如果您使用Docker Machine, 則可以使用以下命令通過SSH連接到它</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker-machine ssh manager1
+</code></pre></div><p>執行以下命令創建新的群集</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker swarm init --advertise-addr &lt;MANAGER-IP&gt;
+</code></pre></div><blockquote><p>如果要使用筆電的Docker桌面來測試單節點群集, 只需docker swarm init不帶任何參數即可運行</p></blockquote> <p>--advertise-addr 標誌將管理器節點配置為將其IP 位址發佈為192.168.99.100 , 其他節點必須能夠訪問該IP 位址.</p> <p>執行以下命令查看群集的目前狀態</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker info
+
+Containers: 2
+Running: 0
+Paused: 0
+Stopped: 2
+  ...snip...
+Swarm: active
+  NodeID: dxn1zf6l61qsb1josjja83ngz
+  Is Manager: true
+  Managers: 1
+  Nodes: 1
+  ...snip...
+</code></pre></div><p>執行命令查看有關節點的信息</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker node ls
+
+ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS
+dxn1zf6l61qsb1josjja83ngz *  manager1  Ready   Active        Leader
+</code></pre></div><p>在 * 旁邊的節點ID 表明目前連接此節點上</p> <h2 id="將其他工作節點-work-node-添加到群集中"><a href="#將其他工作節點-work-node-添加到群集中" aria-hidden="true" class="header-anchor">#</a> 將其他工作節點(work node)添加到群集中</h2> <p>打開 worker1 終端視窗, 執行上述 &quot;建立集群&quot; 教學步驟中docker swarm init 輸出產生的 join 命令</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker swarm join \
+  --token  SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
+  192.168.99.100:2377
+
+This node joined a swarm as a worker.
+</code></pre></div><p>如果遺失 manager1 中的建立集群命令結果, 則可以在 manager1 管理器節點上, 執行以下命令重新顯示 join 指令</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker swarm join-token worker
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join \
+    --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
+    192.168.99.100:2377
+</code></pre></div><p>接著打開 worker2 命令視窗, 同樣地也執行 join 指令, 建立另一個 worker2 工作節點加入現有的集群</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker swarm join \
+  --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
+  192.168.99.100:2377
+
+This node joined a swarm as a worker.
+</code></pre></div><p>接著回到 manager1 管理節點, 打開終端機命令視窗查看所有節點的目前狀態</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker node ls
+
+ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS
+03g1y59jwfg7cf99w4lt0f662    worker2   Ready   Active
+9j68exjopxe7wfl6yuxml7a7j    worker1   Ready   Active
+dxn1zf6l61qsb1josjja83ngz *  manager1  Ready   Active        Leader
+</code></pre></div><blockquote><p>集群管理命令docker node ls 僅在管理器節點上起作用</p></blockquote> <h2 id="在集群佈署服務"><a href="#在集群佈署服務" aria-hidden="true" class="header-anchor">#</a> 在集群佈署服務</h2> <p>在管理節點上打開終端機命令視窗</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker service create --replicas 1 --name helloworld alpine ping docker.com
+
+9uk4639qpg7npwf3fn2aasksr
+</code></pre></div><ul><li>docker service create 命令創建服務</li> <li>--name 標誌為服務命名 helloworld</li> <li>--replicas 標誌指定1 個運行實例</li> <li>參數alpine ping docker.com 將服務定義為執行命令的Alpine Linux容器 ping docker.com</li></ul> <p>執行下面管理命令查看正在運行的服務列表</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker service ls
+
+ID            NAME        SCALE  IMAGE   COMMAND
+9uk4639qpg7n  helloworld  1/1    alpine  ping docker.com
+</code></pre></div><h2 id="檢查集群中的服務"><a href="#檢查集群中的服務" aria-hidden="true" class="header-anchor">#</a> 檢查集群中的服務</h2> <p>執行管理命令
+docker service inspect --pretty &lt;SERVICE-ID&gt; 以易於閱讀的格式顯示有關服務的詳細信息</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service inspect --pretty helloworld
+
+ID:		9uk4639qpg7npwf3fn2aasksr
+Name:		helloworld
+Service Mode:	REPLICATED
+ Replicas:		1
+Placement:
+UpdateConfig:
+ Parallelism:	1
+ContainerSpec:
+ Image:		alpine
+ Args:	ping docker.com
+Resources:
+Endpoint Mode:  vip
+</code></pre></div><p>如果要以json 格式返回服務詳細信息, 請執行不帶 --pretty 標誌的相同命令</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service inspect helloworld
+</code></pre></div><p>執行 docker service ps &lt;SERVICE-ID&gt; 以查看哪些節點正在運行服務</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service ps helloworld
+
+NAME                                    IMAGE   NODE     DESIRED STATE  CURRENT STATE           ERROR               PORTS
+helloworld.1.8p1vev3fq5zm0mi8g0as41w35  alpine  worker2  Running        Running 3 minutes
+</code></pre></div><p>在這種情況下, 該helloworld 服務的一個實例正在 worker2 節點上運行</p> <h2 id="擴展服務群"><a href="#擴展服務群" aria-hidden="true" class="header-anchor">#</a> 擴展服務群</h2> <p>一旦你已經部署了服務的群體, 你就可以使用下面命令控制服務容器的數量.</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker service scale helloworld=5
+
+helloworld scaled to 5
+</code></pre></div><p>執行 docker service ps &lt;SERVICE-ID&gt; 以查看更新的任務列表</p> <div class="language- extra-class"><pre class="language-text"><code>&gt; docker service ps helloworld
+
+NAME                                    IMAGE   NODE      DESIRED STATE  CURRENT STATE
+helloworld.1.8p1vev3fq5zm0mi8g0as41w35  alpine  worker2   Running        Running 7 minutes
+helloworld.2.c7a7tcdq5s0uk3qr88mf8xco6  alpine  worker1   Running        Running 24 seconds
+helloworld.3.6crl09vdcalvtfehfh69ogfb1  alpine  worker1   Running        Running 24 seconds
+helloworld.4.auky6trawmdlcne8ad8phb0f1  alpine  manager1  Running        Running 24 seconds
+helloworld.5.ba19kca06l18zujfwxyc5lkyn  alpine  worker2   Running        Running 24 seconds
+</code></pre></div><p>您可以看到 swarm 建立了4 個新任務, 可以擴展到總共5 個Alpine Linux 運行實例. 任務分佈在群集的三個節點之間, 一個實例在 manager1 節點上運行.</p> <h2 id="刪除集群上運行的服務"><a href="#刪除集群上運行的服務" aria-hidden="true" class="header-anchor">#</a> 刪除集群上運行的服務</h2> <p>執行 docker service rm helloworld 以刪除該 helloworld 服務</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service rm helloworld
+
+helloworld
+</code></pre></div><p>執行 docker service inspect &lt;SERVICE-ID&gt; 以驗證群管理器已刪除該服務</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service inspect helloworld
+[]
+Error: no such service: helloworld
+</code></pre></div><h2 id="滾動更新服務"><a href="#滾動更新服務" aria-hidden="true" class="header-anchor">#</a> 滾動更新服務</h2> <p>在前面你學會了如何縮放服務實例的數量. 在本部分中，您學會Redis 3.0.6 容器標籤部署服務. 然後透過滾動更新, 將服務升級為使用Redis 3.0.7 容器映像.</p> <p>下面指令將 Redis 佈署到群集, 並以10 秒鐘的更新延遲配置群集. 請注意, 以下示例發布版本較舊的 Redis</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service create \
+  --replicas 3 \
+  --name redis \
+  --update-delay 10s \
+  redis:3.0.6
+
+0u6a4s31ybk7yw2wyvtikmu50
+</code></pre></div><ul><li>--update-delay 標誌配置在更新一個服務任務或一組任務之間的時間延遲. 您可以將時間描述T為秒Ts , 分鐘Tm 或小時數的組合Th. 因此 10m30s 表示 &quot;10分鐘30秒&quot; 延遲</li></ul> <p>現在你可以更新的容器映像redis. 群集管理器根據以下UpdateConfig 策略將更新應用於節點</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service update --image redis:3.0.7 redis
+</code></pre></div><p>執行下面指令查看服務狀態</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service inspect --pretty redis
+
+ID:             0u6a4s31ybk7yw2wyvtikmu50
+Name:           redis
+...snip...
+Update status:
+ State:      paused
+ Started:    11 seconds ago
+ Message:    update paused due to failure or early termination of task 9p7ith557h8ndf0ui9s0q951b
+...snip...
+</code></pre></div><p>要重新啟動暫停的更新，請執行 docker service update &lt;SERVICE-ID&gt;</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service update redis
+</code></pre></div><p>執行 docker service ps &lt;SERVICE-ID&gt; 以觀看滾動更新</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service ps redis
+
+NAME                                   IMAGE        NODE       DESIRED STATE  CURRENT STATE            ERROR
+redis.1.dos1zffgeofhagnve8w864fco      redis:3.0.7  worker1    Running        Running 37 seconds
+ \_ redis.1.88rdo6pa52ki8oqx6dogf04fh  redis:3.0.6  worker2    Shutdown       Shutdown 56 seconds ago
+redis.2.9l3i4j85517skba5o7tn5m8g0      redis:3.0.7  worker2    Running        Running About a minute
+ \_ redis.2.66k185wilg8ele7ntu8f6nj6i  redis:3.0.6  worker1    Shutdown       Shutdown 2 minutes ago
+redis.3.egiuiqpzrdbxks3wxgn8qib1g      redis:3.0.7  worker1    Running        Running 48 seconds
+ \_ redis.3.ctzktfddb2tepkr45qcmqln04  redis:3.0.6  mmanager1  S
+</code></pre></div><h2 id="維護集群上的某一個節點"><a href="#維護集群上的某一個節點" aria-hidden="true" class="header-anchor">#</a> 維護集群上的某一個節點</h2> <p>正常來說所有節點均在 ACTIVE 可用性下運行.
+有時後, 例如計劃的維護時間, 您需要將節點設置為 DRAIN 可用性. DRAIN 可用性阻止節點從群集管理器接收新任務.</p> <p>輸入下面管理命令來設定某一個節點為 drain 狀態</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker node update --availability drain worker1
+</code></pre></div><p>檢查節點以檢查其可用性</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker node inspect --pretty worker1
+
+ID:			38ciaotwjuritcdtn9npbnkuz
+Hostname:		worker1
+Status:
+ State:			Ready
+ Availability:		Drain
+...snip...
+</code></pre></div><p>worker1 節點顯示AVAILABILITY 為Drain</p> <p>執行 docker service ps redis 以查看群管理器如何更新服務的任務分配redis</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service ps redis
+
+NAME                                    IMAGE        NODE      DESIRED STATE  CURRENT STATE           ERROR
+redis.1.7q92v0nr1hcgts2amcjyqg3pq       redis:3.0.6  manager1  Running        Running 4 minutes
+redis.2.b4hovzed7id8irg1to42egue8       redis:3.0.6  worker2   Running        Running About a minute
+ \_ redis.2.7h2l8h3q3wqy5f66hlv9ddmi6   redis:3.0.6  worker1   Shutdown       Shutdown 2 minutes ago
+redis.3.9bg7cezvedmkgg6c8yzvbhwsd       redis:3.0.6  worker2   Running
+</code></pre></div><p>下面指令可將節點恢復為活動狀態</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker node update --availability active worker1
+
+worker1
+</code></pre></div><h2 id="發布服務端口"><a href="#發布服務端口" aria-hidden="true" class="header-anchor">#</a> 發布服務端口</h2> <p>創建服務時, 如果不使用 published 端口, docker engine 則會為每個服務任務綁定一個隨機的高編號端口.</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service create \
+  --name &lt;SERVICE-NAME&gt; \
+  --publish published=&lt;PUBLISHED-PORT&gt;,target=&lt;CONTAINER-PORT&gt; \
+  &lt;IMAGE&gt;
+</code></pre></div><p>或者用</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service create \
+  --name &lt;SERVICE-NAME&gt; \
+  -p &lt;PUBLISHED-PORT&gt;:&lt;CONTAINER-PORT&gt;
+  &lt;IMAGE&gt;
+</code></pre></div><p>你也可以使用以下命令發布現有服務的端口</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service update \
+  --publish-add published=&lt;PUBLISHED-PORT&gt;,target=&lt;CONTAINER-PORT&gt; \
+  &lt;SERVICE&gt;
+</code></pre></div><p>你也能查看服務目前的發布端口</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service inspect --format=&quot;{{json .Endpoint.Spec.Ports}}&quot; my-web
+
+
+[{&quot;Protocol&quot;:&quot;tcp&quot;,&quot;TargetPort&quot;:80,&quot;PublishedPort&quot;:8080}]
+</code></pre></div><p>下面語法加上了 udp 發布端口的示範</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service create --name dns-cache \
+  -p 53:53 \
+  -p 53:53/udp \
+  dns-cache
+</code></pre></div><h2 id="刪除服務"><a href="#刪除服務" aria-hidden="true" class="header-anchor">#</a> 刪除服務</h2> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service remove my_web
+</code></pre></div><h2 id="配置運行時環境"><a href="#配置運行時環境" aria-hidden="true" class="header-anchor">#</a> 配置運行時環境</h2> <p>您可以在容器中為運行時環境配置以下選項, 以下服務的容器的環境變數 $MYVAR 設置為myvalue, 從/tmp/ 目錄運行, 並以my_user 用戶身份運行</p> <div class="language- extra-class"><pre class="language-text"><code>$ docker service create --name helloworld \
+  --env MYVAR=myvalue \
+  --workdir /tmp \
+  --user my_user \
+  alpine ping docker.com
+</code></pre></div><p>要更新現有服務運行的命令, 可以使用該--args 標誌. 以下示例更新了一個現有服務 helloworld , 以使其運行命令ping docker.com 而不是之前運行的命令</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service update --args &quot;ping docker.com&quot; helloworld
+</code></pre></div><h2 id="配置外部負載均衡器"><a href="#配置外部負載均衡器" aria-hidden="true" class="header-anchor">#</a> 配置外部負載均衡器</h2> <p>您可以配置負載平衡器以平衡群集中每個節點之間的請求, 例如你可在以下 HAProxy 配置中/etc/haproxy/haproxy.cfg</p> <div class="language- extra-class"><pre class="language-text"><code>global
+  log /dev/log    local0
+  log /dev/log    local1 notice
+...snip...
+
+# Configure HAProxy to listen on port 80
+frontend http_front
+   bind *:80
+   stats uri /haproxy?stats
+   default_backend http_back
+
+# Configure HAProxy to route requests to swarm nodes on port 8080
+backend http_back
+   balance roundrobin
+   server node1 192.168.99.100:8080 check
+   server node2 192.168.99.101:8080 check
+   server node3 192.168.99.102:8080 check
+</code></pre></div><p>當您在端口80上訪問HAProxy負載平衡器時, 它將請求轉發到群集中的任何節點.</p> <h2 id="使用私有註冊表-private-registery-上的映像檔來建立服務"><a href="#使用私有註冊表-private-registery-上的映像檔來建立服務" aria-hidden="true" class="header-anchor">#</a> 使用私有註冊表(private registery)上的映像檔來建立服務</h2> <p>如果您的映像檔存儲在 registry.example.com 私有註冊表上, 請使用如下命令</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker login registry.example.com
+
+[manager1]$ docker service  create \
+  --with-registry-auth \
+  --name my_service \
+  registry.example.com/acme/my_image:latest
+</code></pre></div><h2 id="放置約束"><a href="#放置約束" aria-hidden="true" class="header-anchor">#</a> 放置約束</h2> <p>使用放置約束來控制可以將服務分配給的節點, 以下示例中, 服務僅在標籤 region 設置為 east 的節點上運行. 如果沒有適當標記的節點可用, 則分配任務將等待 Pending 直到它們變為可用.</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service create \
+  --name my-nginx \
+  --replicas 5 \
+  --constraint node.labels.region==east \
+  nginx
+</code></pre></div><h2 id="回滾到服務的先前版本"><a href="#回滾到服務的先前版本" aria-hidden="true" class="header-anchor">#</a> 回滾到服務的先前版本</h2> <p>如果服務的更新版本無法按預期運行, 可以使用下面指令手動回滾到服務的先前版本</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service update \
+  --rollback \
+  --update-delay 0s
+  my_web
+</code></pre></div><h2 id="如果更新失敗-將自動回滾"><a href="#如果更新失敗-將自動回滾" aria-hidden="true" class="header-anchor">#</a> 如果更新失敗, 將自動回滾</h2> <p>您可以通過以下方式配置服務：如果對服務的更新導致重新部署失敗, 則該服務可以自動回滾到以前的配置. 這有助於保護服務可用性</p> <table><thead><tr><th>設定參數</th> <th>默認</th> <th>描述</th></tr></thead> <tbody><tr><td>--rollback-delay</td> <td>0s</td> <td>回滾任務後回滾下一個任務要等待的時間. 0 表示在第一個回滾任務部署後立即回滾第二個任務</td></tr> <tr><td>--rollback-failure-action</td> <td>pause</td> <td>當任務無法回滾時, 是回滾 pause 還是continue 嘗試回滾其他任務</td></tr> <tr><td>--rollback-max-failure-ratio</td> <td>0</td> <td>回滾期間可容忍的失敗率, 指定為 0到1 之間的浮點數. 例如給定 5 個任務, 失敗率 .2 則表示可容忍一個任務無法回滾. 0 表示不允許任何故障, 而 值 1 表示可允許任何數量的故障.</td></tr> <tr><td>--rollback-monitor</td> <td>5s</td> <td>每個任務回滾後監視失敗的持續時間. 如果任務在此時間段之前停止, 則回滾被視為失敗.</td></tr> <tr><td>--rollback-parallelism</td> <td>1</td> <td>並行回滾的最大任務數. 默認情況下, 一次回滾一個任務. 值為 0 則會使所有任務並行回滾.</td></tr></tbody></table> <p>以下示例將 redis 服務配置為在無法部署 docker 服務更新時自動回滾. 可以並行回滾兩個任務, 回滾後會監視任務20秒鐘, 以確保它們不會退出, 並且允許的最大失敗率為20%</p> <div class="language- extra-class"><pre class="language-text"><code>[manager1]$ docker service create --name=my_redis \
+   --replicas=5 \
+   --rollback-parallelism=2 \
+   --rollback-monitor=20s \
+   --rollback-max-failure-ratio=.2 \
+   redis:latest
+</code></pre></div><p>https://github.com/DockStation/dockstation/releases/tag/v1.5.1</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/flashlin.github.io/Yarn.html" class="prev">Yarn</a></span> <span class="next"><a href="/flashlin.github.io/Docker/Docker.html">Docker</a>→
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/flashlin.github.io/assets/js/app.d6d31a8a.js" defer></script><script src="/flashlin.github.io/assets/js/2.a0c46ff0.js" defer></script><script src="/flashlin.github.io/assets/js/13.f3254438.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ASP.NET Session &amp; Redis 高可用性設定 | Flash&#39;s BLOG</title>
+    <meta name="description" content="對於我這種只有一點點知識又沒錢的傢伙只好自行徒手建立這BLOG">
+    
+    
+    <link rel="preload" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css" as="style"><link rel="preload" href="/flashlin.github.io/assets/js/app.d6d31a8a.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/2.a0c46ff0.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/21.f457c598.js" as="script"><link rel="prefetch" href="/flashlin.github.io/assets/js/10.d1978d11.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/11.74842217.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/12.570cca1a.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/13.f3254438.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/14.f5714b8d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/15.ddfd2a7d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/16.3e1aa1f7.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/17.7df842fe.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/18.0a5e8379.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/19.4805f546.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/20.1c778918.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/22.c530dcd0.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/23.63e5c60f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/24.08234543.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/25.3d55c258.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/26.09f41cdc.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/27.be0ec4c9.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/28.ce741413.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/29.67c14f0f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/3.beb188ba.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/30.549cc741.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/31.6300e0d8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/32.f7ae1dc8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/33.cba52309.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/34.9c997a6d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/35.43c18bc6.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/36.a9d0a819.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/37.aeeb6fbf.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/38.c09d9984.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/39.25a1a381.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/4.1f08992d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/40.55a904c1.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/41.decb5cd1.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/42.550cc419.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/43.fc73dac4.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/5.62067504.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/6.db739c78.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/7.bea60683.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/8.b5dfa2b5.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/9.583981fc.js">
+    <link rel="stylesheet" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/flashlin.github.io/" class="home-link router-link-active"><!----> <span class="site-name">Flash's BLOG</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Home</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Docker</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DotNet-Core</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>DotNet</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/flashlin.github.io/DotNet/20191026-1900-Redis-Master-Slave.html" class="active sidebar-link">ASP.NET Session &amp; Redis 高可用性設定</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Typescripts</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>設計守則</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>錯誤集錦</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="asp-net-session-redis-高可用性設定"><a href="#asp-net-session-redis-高可用性設定" aria-hidden="true" class="header-anchor">#</a> ASP.NET Session &amp; Redis 高可用性設定</h1> <p>2019-10-26</p> <h2 id="準備-redis-設定檔案"><a href="#準備-redis-設定檔案" aria-hidden="true" class="header-anchor">#</a> 準備 redis 設定檔案</h2> <p>首先進行 Redis Master Slave 設定,
+準備master 設定檔案: redis-6379.conf</p> <div class="language- extra-class"><pre class="language-text"><code>port 6379 
+bind 192.168.11.202 
+requirepass &quot;myredis&quot;
+daemonize yes
+logfile &quot;6379.log&quot; 
+dbfilename &quot;dump-6379.rdb&quot; 
+dir &quot;/opt/soft/redis/data&quot;
+
+#如若master設置了認證密碼，那麼所有redis數據節點都配置上masterauth屬性
+masterauth &quot;myredis&quot;
+</code></pre></div><p>準備 Slave 設定檔案: redis-6380.conf</p> <div class="language- extra-class"><pre class="language-text"><code>port 6380 
+bind 192.168.11.202 
+requirepass &quot;myredis&quot;
+daemonize yes
+logfile &quot;6380.log&quot; 
+dbfilename &quot;dump-6380.rdb&quot; 
+dir &quot;/opt/soft/redis/data&quot;
+
+#如若master設置了認證密碼，那麼所有redis數據節點都配置上masterauth屬性
+masterauth &quot;myredis&quot; 
+slaveof 192.168.11.202 6379
+</code></pre></div><h2 id="啟動節點"><a href="#啟動節點" aria-hidden="true" class="header-anchor">#</a> 啟動節點</h2> <p>啟動 redis master &amp; slave</p> <div class="language- extra-class"><pre class="language-text"><code>$ redis-server redis-6379.conf
+$ redis-server redis-6380.conf
+</code></pre></div><p>確認主從關係</p> <div class="language- extra-class"><pre class="language-text"><code>$ redis-cli -h 192.168.11.202 -p 6379 - a myredis info replication
+</code></pre></div><p>一旦主節點出現故障, 需要手動將一個 &quot;從節點&quot; 晉升為 &quot;主節點&quot;, 同時需要修改應用方的主節點地址, 還需要命令其他從節點去複制新的主節點，整個過程需要人工干預</p> <h2 id="準備-redis-sentinel-設定檔"><a href="#準備-redis-sentinel-設定檔" aria-hidden="true" class="header-anchor">#</a> 準備 Redis-Sentinel 設定檔</h2> <p>準備 redis-sentinel.conf 最基本的設定值如下, 請至少準備三台 sentinel</p> <div class="language- extra-class"><pre class="language-text"><code>port 26379
+daemonize yes
+dir /tmp
+
+# master1
+# 至少需要幾個 sentinel 同意，master_6379 才算失效，自動 failover。
+sentinel monitor master_6379 127.0.0.1 6379 1
+
+# 多少毫秒數內沒有回應，master_6379 就算失效。
+sentinel down-after-milliseconds master_6379 1000
+
+# 當 failover 發生時，最多可以有多少個 slave 從新的 master 同步資料。
+sentinel parallel-syncs master_6379 1
+
+# 多少毫秒數內沒有 failover 成功，就算 failover 失敗。
+sentinel failover-timeout master_6379 180000
+
+# master2
+...
+</code></pre></div><p>啟動 Redis-Sentinel</p> <div class="language- extra-class"><pre class="language-text"><code># Start sentinel
+$ /usr/local/bin/redis-sentinel /etc/redis/sentinel_6379.conf
+$ /usr/local/bin/redis-sentinel /etc/redis/sentinel_6379.conf
+$ /usr/local/bin/redis-sentinel /etc/redis/sentinel_6379.conf
+</code></pre></div><p>檢查 Redis-Sentinel 狀態</p> <div class="language- extra-class"><pre class="language-text"><code>$ redis-cli -h 127.0.01 -p 26379 info sentinel
+</code></pre></div><h2 id="高可用測試"><a href="#高可用測試" aria-hidden="true" class="header-anchor">#</a> 高可用測試</h2> <p>手動停掉 6379 master 節點</p> <div class="language- extra-class"><pre class="language-text"><code>$ redis-cli -h 192.168.11.202 -p 6379 -a myredis
+192.168.11.202:6379&gt; shutdown
+</code></pre></div><h2 id="asp-net-session-state"><a href="#asp-net-session-state" aria-hidden="true" class="header-anchor">#</a> ASP.NET Session State</h2> <p>ASP.NET Web Application 進行配置</p> <div class="language- extra-class"><pre class="language-text"><code>Install-Package Microsoft.Web.RedisSessionStateProvider
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>&lt;sessionState mode=&quot;Custom&quot; customProvider=&quot;MySessionStateStore&quot;&gt;
+  &lt;providers&gt;
+    &lt;add name=&quot;MySessionStateStore&quot; type=&quot;Microsoft.Web.Redis.RedisSessionStateProvider&quot;
+         host=&quot;&quot;
+         accessKey=&quot;&quot;
+         ssl=&quot;true&quot; /&gt;
+  &lt;/providers&gt;
+&lt;/sessionState&gt;
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/flashlin.github.io/DotNet-Core/AspNetCore.html" class="prev">DotNet Core</a></span> <span class="next"><a href="/flashlin.github.io/Typescripts/chapter00-readme.html">Typescripts</a>→
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/flashlin.github.io/assets/js/app.d6d31a8a.js" defer></script><script src="/flashlin.github.io/assets/js/2.a0c46ff0.js" defer></script><script src="/flashlin.github.io/assets/js/21.f457c598.js" defer></script>
+  </body>
+</html>

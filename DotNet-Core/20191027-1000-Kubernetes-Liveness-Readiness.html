@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kubernetes Health Check 探針 | Flash&#39;s BLOG</title>
+    <meta name="description" content="對於我這種只有一點點知識又沒錢的傢伙只好自行徒手建立這BLOG">
+    
+    
+    <link rel="preload" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css" as="style"><link rel="preload" href="/flashlin.github.io/assets/js/app.d6d31a8a.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/2.a0c46ff0.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/18.0a5e8379.js" as="script"><link rel="prefetch" href="/flashlin.github.io/assets/js/10.d1978d11.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/11.74842217.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/12.570cca1a.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/13.f3254438.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/14.f5714b8d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/15.ddfd2a7d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/16.3e1aa1f7.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/17.7df842fe.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/19.4805f546.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/20.1c778918.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/21.f457c598.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/22.c530dcd0.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/23.63e5c60f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/24.08234543.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/25.3d55c258.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/26.09f41cdc.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/27.be0ec4c9.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/28.ce741413.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/29.67c14f0f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/3.beb188ba.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/30.549cc741.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/31.6300e0d8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/32.f7ae1dc8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/33.cba52309.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/34.9c997a6d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/35.43c18bc6.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/36.a9d0a819.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/37.aeeb6fbf.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/38.c09d9984.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/39.25a1a381.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/4.1f08992d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/40.55a904c1.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/41.decb5cd1.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/42.550cc419.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/43.fc73dac4.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/5.62067504.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/6.db739c78.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/7.bea60683.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/8.b5dfa2b5.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/9.583981fc.js">
+    <link rel="stylesheet" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/flashlin.github.io/" class="home-link router-link-active"><!----> <span class="site-name">Flash's BLOG</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Home</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Docker</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>DotNet-Core</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/flashlin.github.io/DotNet-Core/20191010-1720-UsingDifferentServicesWithSameIService.html" class="sidebar-link">IoC 進階應用</a></li><li><a href="/flashlin.github.io/DotNet-Core/20191017-2000-HttpClient.html" class="sidebar-link">HttpClient 使用注意事項</a></li><li><a href="/flashlin.github.io/DotNet-Core/20191027-1000-Kubernetes-Liveness-Readiness.html" class="active sidebar-link">Kubernetes Health Check 探針</a></li><li><a href="/flashlin.github.io/DotNet-Core/AspNetCore.html" class="sidebar-link">DotNet Core</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DotNet</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Typescripts</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>設計守則</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>錯誤集錦</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="kubernetes-health-check-探針"><a href="#kubernetes-health-check-探針" aria-hidden="true" class="header-anchor">#</a> Kubernetes Health Check 探針</h1> <p>自 Kubernetes 1.8 起, Docker HEALTHCHECK 已在 Kubernetes 中明確禁用.
+此外 Kubernetes 將活動性(livness) 與就緒性(readiness) 檢查區分開來,
+以便其他組件可以做出不同的反應(例如重新啟動容器與服務的端點列表中刪除 Pod)</p> <p>首先建立 Liveness 功能</p> <div class="language- extra-class"><pre class="language-text"><code>using Microsoft.Extensions.Diagnostics.HealthChecks;
+namespace SampleWebAppWithHealthchecks
+{
+   internal class LivenessHealthCheck : IHealthCheck
+   {
+      public Task&lt;HealthCheckResult&gt; CheckHealthAsync(
+        HealthCheckContext context, 
+        CancellationToken cancellationToken = default(CancellationToken))
+      {
+         // Some Liveness check
+         Console.WriteLine(&quot;Liveness Health check executed.&quot;);
+         return Task.FromResult(HealthCheckResult.Healthy());
+      }
+   }
+}
+</code></pre></div><p>下面是 Readiness 功能</p> <div class="language- extra-class"><pre class="language-text"><code>using Microsoft.Extensions.Diagnostics.HealthChecks;
+namespace SampleWebAppWithHealthchecks
+{
+   internal class ReadinessHealthCheck : IHealthCheck
+   {
+      public bool StartupTaskCompleted { get; set; } = false;
+
+      public Task&lt;HealthCheckResult&gt; CheckHealthAsync(
+         HealthCheckContext context, 
+         CancellationToken cancellationToken = default(CancellationToken))
+      {
+         // Some Readiness check
+         Console.WriteLine(&quot;Readiness health check executed.&quot;);
+
+         if (StartupTaskCompleted)
+         {
+            return Task.FromResult(
+              HealthCheckResult.Healthy(&quot;The startup task is finished.&quot;));
+         }
+
+         return Task.FromResult(
+             HealthCheckResult.Unhealthy(&quot;The startup task is still running.&quot;));
+      }
+   }
+}
+</code></pre></div><p>下面是應用程式服務範例, 下面示範延遲15 秒後才啟動 readiness HealthCheck 旗標.</p> <div class="language- extra-class"><pre class="language-text"><code>namespace SampleWebAppWithHealthchecks
+{
+   internal class StartupHostedService : IHostedService, IDisposable
+   {
+      private readonly int _delaySeconds = 15;
+      private readonly ILogger _logger;
+      private readonly ReadinessHealthCheck _healthCheck;
+
+      public StartupHostedService(ILogger&lt;StartupHostedService&gt; logger,
+         ReadinessHealthCheck healthCheck)
+      {
+         _logger = logger;
+         _healthCheck = healthCheck;
+      }
+
+      public Task StartAsync(CancellationToken cancellationToken)
+      {
+         Console.WriteLine(&quot;Start task.&quot;);
+
+         // Simulate the effect of a long-running startup task.
+         Task.Run(async () =&gt;
+         {
+             await Task.Delay(_delaySeconds * 1000);
+             _healthCheck.StartupTaskCompleted = true;
+             _logger.LogInformation($&quot;Startup Background Service has started.&quot;);
+         });
+
+         return Task.CompletedTask;
+      }
+
+      public Task StopAsync(CancellationToken cancellationToken)
+      {
+         _logger.LogInformation(&quot;Startup Background Service is stopping.&quot;);
+
+         return Task.CompletedTask;
+      }
+
+      public void Dispose()
+      {
+      }
+   }
+}
+</code></pre></div><p>接著在 Startup.cs 註冊以上物件</p> <div class="language- extra-class"><pre class="language-text"><code>public void ConfigureServices(IServiceCollection services)
+{
+   services.AddHostedService&lt;StartupHostedService&gt;();
+   services.AddSingleton&lt;ReadinessHealthCheck&gt;();
+   services.AddSingleton&lt;LivenessHealthCheck&gt;();
+
+   services.AddHealthChecks()
+      .AddLivenessHealthCheck(&quot;Liveness&quot;, 
+         HealthStatus.Unhealthy, 
+         new List&lt;string&gt;(){&quot;Liveness&quot;})
+      .AddReadinessHealthCheck(&quot;Readiness&quot;, 
+         HealthStatus.Unhealthy, 
+         new List&lt;string&gt;{ &quot;Readiness&quot; });
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+   ...
+   app.UseHealthChecks(&quot;/health/live&quot;, new HealthCheckOptions()
+      {
+         Predicate = check =&gt; check.Name == &quot;Liveness&quot;
+      })
+      .UseHealthChecks(&quot;/health/ready&quot;, new HealthCheckOptions()
+      {
+         Predicate = check =&gt; check.Name == &quot;Readiness&quot;,
+      });
+
+   app.UseHttpsRedirection();
+   app.UseMvc();
+}
+</code></pre></div><p>然後在 Kubernetes.yaml 檔案中, 添加readinessProbe / livenessProbe 屬性</p> <div class="language- extra-class"><pre class="language-text"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samplewebapp
+  namespace: default
+  labels:
+    app: samplewebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: samplewebapp
+  template:
+    metadata:
+      name: samplewebapp
+      labels:
+        app: samplewebapp
+    spec:
+      containers:
+      - name: samplewebapp
+        image: YOUR_DOCKER_IMAGE
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 3
+          successThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          failureThreshold: 3
+          successThreshold: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 0.5Gi
+          requests:
+            cpu: 100m
+            memory: 0.5Gi
+        terminationMessagePath: &quot;/dev/termination-log&quot;
+        terminationMessagePolicy: File
+        imagePullPolicy: Always
+        securityContext:
+          privileged: false
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/flashlin.github.io/DotNet-Core/20191017-2000-HttpClient.html" class="prev">HttpClient 使用注意事項</a></span> <span class="next"><a href="/flashlin.github.io/DotNet-Core/AspNetCore.html">DotNet Core</a>→
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/flashlin.github.io/assets/js/app.d6d31a8a.js" defer></script><script src="/flashlin.github.io/assets/js/2.a0c46ff0.js" defer></script><script src="/flashlin.github.io/assets/js/18.0a5e8379.js" defer></script>
+  </body>
+</html>
