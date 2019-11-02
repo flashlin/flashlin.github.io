@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>資料庫參數探測問題 (Parameter Sniffing Problem) | Flash&#39;s BLOG</title>
+    <meta name="description" content="對於我這種只有一點點知識又沒錢的傢伙只好自行徒手建立這BLOG">
+    
+    
+    <link rel="preload" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css" as="style"><link rel="preload" href="/flashlin.github.io/assets/js/app.104204f2.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/2.a0c46ff0.js" as="script"><link rel="preload" href="/flashlin.github.io/assets/js/13.b2220085.js" as="script"><link rel="prefetch" href="/flashlin.github.io/assets/js/10.4cd7f517.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/11.74842217.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/12.21813e33.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/14.af8747b1.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/15.d46c881d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/16.df726e5a.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/17.751a56dd.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/18.ced99ea7.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/19.784f80fd.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/20.1ba7b97c.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/21.b86194f2.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/22.ca3c555a.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/23.91ab00da.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/24.e14f4c86.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/25.fd7a74fc.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/26.f8dd001a.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/27.0f8d6aa8.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/28.24ddaf3c.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/29.9466e5e2.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/3.9297b4a6.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/30.dbf3f856.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/31.df3fb494.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/32.8daf6a6f.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/33.39fcfdbb.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/34.da71a6b9.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/35.6dc303fb.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/36.f10afcaa.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/37.420adfc5.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/38.5a425cbb.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/39.36d0cb80.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/4.b5f9a0e1.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/40.1499de4d.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/41.14d9d7db.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/42.f61d007c.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/43.d37b63e4.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/44.9b5ae282.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/45.7ad74a9c.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/5.457f23db.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/6.d5aa2ec5.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/7.bea60683.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/8.b5dfa2b5.js"><link rel="prefetch" href="/flashlin.github.io/assets/js/9.3ecb4840.js">
+    <link rel="stylesheet" href="/flashlin.github.io/assets/css/0.styles.7db30d77.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/flashlin.github.io/" class="home-link router-link-active"><!----> <span class="site-name">Flash's BLOG</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/flashlin.github.io/" class="nav-link">Home</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Home</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Database</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/flashlin.github.io/Database/20191102-1030-ParameterSniffing.html" class="active sidebar-link">資料庫參數探測問題 (Parameter Sniffing Problem)</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Docker</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DotNet-Core</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DotNet</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Typescripts</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>設計守則</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>錯誤集錦</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="資料庫參數探測問題-parameter-sniffing-problem"><a href="#資料庫參數探測問題-parameter-sniffing-problem" aria-hidden="true" class="header-anchor">#</a> 資料庫參數探測問題 (Parameter Sniffing Problem)</h1> <p>2019-11-02</p> <p>前陣子小明跑來問說甚麼是參數探測?</p> <p>還沒開始說明之前, 先介紹以下是資料庫在資料表找資料的幾種方法:</p> <ul><li>Table Scan</li></ul> <p>當資料表沒有任何Index, 資料庫引擎讀取整個資料表逐筆比對, 這是最沒效率的做法.</p> <ul><li>Clustered Index Scan</li></ul> <p>評估查詢條件無法藉由其他Index 加速, 資料庫引擎逐筆讀取整個Clustered Index 進行比對, 全部資料要掃一次.</p> <p>另外由於Clustered Index 順序與資料實際儲存順序一致, 不需要額外尋找動作(例如:Key Lookup) 就能讀到SELECT 要求的欄位.</p> <ul><li>Index Scan</li></ul> <p>查詢條件包含Index 的組成欄位, 資料庫引擎逐筆讀取Index(由第一筆到最後一筆), 從中找出符合資料.</p> <p>若SELECT 要求Index 未包含的欄位, 則還需透過Key Lookup 找到資料列讀取資料.</p> <p><strong>不管最後找到幾筆都得讀完整個Index.</strong></p> <ul><li>Index Seek</li></ul> <p>當查詢條件包含Index 組成的第一個欄位(由此可知, 建立多欄位Index 時順序很重要), 資料庫引擎可透過B-Tree 演算法找到第一筆相符資料，<strong>逐筆讀取直到資料不相符為止</strong></p> <p>必要時還需配合Key Lookup.</p> <p>Index Seek 時間長短與結果筆數多寡成正比.</p> <hr> <p>以上四種查詢方法越後面效率越快, 一般而言 Index Seek 比Index Scan 有效率.</p> <p>假設有一個資料表(SalesOrderDetail) 的資料分佈如下</p> <table><thead><tr><th>ProductId</th> <th>訂單資料筆數</th></tr></thead> <tbody><tr><td>1</td> <td>1000</td></tr> <tr><td>2</td> <td>3</td></tr></tbody></table> <p>當你執行以下指令並觀察執行計劃, 你可以發現資料庫引擎用Index Scan 方法讀取資料.</p> <div class="language- extra-class"><pre class="language-text"><code>SELECT ProductId, OrderData FROM SalesOrderDetail
+WHERE ProductId = 1
+</code></pre></div><p>但你改用查詢 ProductId = 2 去查詢資料並觀察執行計劃, 資料庫引擎用Index Seek 方式去查詢資料</p> <div class="language- extra-class"><pre class="language-text"><code>SELECT ProductId, OrderData FROM SalesOrderDetail
+WHERE ProductId = 2
+</code></pre></div><p>由此可知</p> <ul><li>結果筆數多時, Index Scan 比Index Seek 划算.</li> <li>結果筆數少時, Index Seek 效率高</li></ul> <hr> <p>一般來說Stored procedure 在第一次執行時, 資料庫引擎會把編譯(compile) 好的執行計畫丟到快取裡面. 避免每次執行Stored procedure 都必須耗費CPU 重新編譯執行.</p> <p>所以當你建立上述SalesOrderDetail 查詢StoreProcedure 的時候.</p> <div class="language- extra-class"><pre class="language-text"><code>CREATE PROC GetOrderDetail
+   @productId int
+BEGIN
+AS
+   SELECT ProductId, OrderData FROM dbo.SalesOrderDetail
+   WHERE ProductId = @productId
+END
+</code></pre></div><p>一旦你執行</p> <div class="language- extra-class"><pre class="language-text"><code>EXEC dbo.GetOrderDetail 1
+</code></pre></div><p>資料庫引擎就會用Index Scan 方法讀取資料.
+然後建立這個GetOrderDetail SP執行計畫快取.</p> <p>然後你再執行另一個查詢條件</p> <div class="language- extra-class"><pre class="language-text"><code>EXEC dbo.GetOrderDetail 2
+</code></pre></div><p>資料庫引擎就會用先前的執行快取計畫, 再一次用Index Scan 方法讀取資料. 查詢結果就會比較慢.</p> <p>由此可知, 如果第一次執行Stored procedure 所選擇的是資料分布非常極端的情況, 可能造成之後再執行此Stored procedure時, 會產生查詢效能問題.</p> <p>這種情形, 我們稱為 &quot;參數探測&quot; 問題.</p> <h2 id="解決方案探討"><a href="#解決方案探討" aria-hidden="true" class="header-anchor">#</a> 解決方案探討</h2> <h3 id="解決方案1"><a href="#解決方案1" aria-hidden="true" class="header-anchor">#</a> 解決方案1</h3> <p>如果我們的語法並不常常執行, 但每次執行時都查詢資料量的結果集差異非常大, 這邊建議的解決方案是每次執行的時候去Recompile(重新編譯) 你的Stored Procedure.</p> <p>像是每月統計報表就很適合這種方案.</p> <p>而Recompile 有幾個做法:</p> <ul><li>針對整個Procedure 層級做Recompile</li></ul> <p>如下 WITH RECOMPILE 示範</p> <div class="language- extra-class"><pre class="language-text"><code>CREATE PROC GetOrderDetail
+   @productId int
+BIGIN WITH RECOMPILE
+AS
+   SELECT ProductId, OrderData FROM dbo.SalesOrderDetail
+   WHERE ProductId = @productId
+END
+</code></pre></div><ul><li>針對Stored Procedure 中個別語法進行Recompile</li></ul> <p>如下 OPTION(RECOMPILE) 示範</p> <div class="language- extra-class"><pre class="language-text"><code>CREATE PROC GetOrderDetail
+   @productId int
+BIGIN
+AS
+   SELECT ProductId, OrderData FROM dbo.SalesOrderDetail
+   WHERE ProductId = @productId OPTION(RECOMPILE)
+END
+</code></pre></div><h3 id="解決方案2"><a href="#解決方案2" aria-hidden="true" class="header-anchor">#</a> 解決方案2</h3> <p>假設你的語法頻繁查詢, RECOMPILE 顯然不是一個非常好的方法.
+如果你不追求每次的查詢都是完美的, 我們可以透過OPTIMIZE FOR UNKNOWN 或者Local Variable 來解決.</p> <ul><li>OPTIMIZE FOR UNKNOWN</li></ul> <p>它是讓資料庫引擎在編譯時, 告訴其參數是未知的, 只要Query Optimizer 認定參數的值是未知的, 它會選擇一個中庸的值, 如果是等於 (=) 的運算子, 他的預估行數會是</p> <blockquote><p>Total Rows / (Distinct 此 Column組合數)</p></blockquote> <p>如果是 &quot;非等於&quot; 的運算子(例如 '&gt;' ), 預估行數則會是</p> <blockquote><p>全部的Row的30%</p></blockquote> <p>以下是 OPTIMIZE FOR UNKNOWN 範例</p> <div class="language- extra-class"><pre class="language-text"><code>CREATE PROC GetOrderDetail
+   @productId int
+BIGIN
+AS
+   SELECT ProductId, OrderData FROM dbo.SalesOrderDetail
+   WHERE ProductId = @productId OPTION(OPTIMIZE FOR UNKNOWN)
+END
+</code></pre></div><p>如果是SQL 2008 以前的版本, 也有其他解決方案, 就是Local Variable, 透過Local variable 承接傳進來的參數, 亦可達到與OPTIMIZE FOR UNKNOWN一樣的效果, 只可惜寫起來可讀性很差.</p> <h2 id="解決方案3"><a href="#解決方案3" aria-hidden="true" class="header-anchor">#</a> 解決方案3</h2> <p>將一種查詢拆分成多種查詢, 適合頻繁查詢, 且追求每次查詢都能有近乎完美效能的解法.</p> <p>例如你很清楚查詢時候在某些條件下要用哪一種查詢方法.</p> <p>以下是當結果資料很大的時候要用Index Scan 方法讀取資料.</p> <div class="language- extra-class"><pre class="language-text"><code>   SELECT ProductId, OrderData FROM dbo.SalesOrderDetail WITH(FORCESCAN)
+   WHERE ProductId = @productId
+</code></pre></div><p>以下是當結果資料很少的時候要用Index Seek 方法讀取資料.</p> <div class="language- extra-class"><pre class="language-text"><code>   SELECT ProductId, OrderData FROM dbo.SalesOrderDetail WITH(FORCESEEK)
+   WHERE ProductId = @productId
+</code></pre></div><p>建立一支Stored Procedure 根據傳進來的查詢條件選擇適當的查詢條件執行.</p> <div class="language- extra-class"><pre class="language-text"><code>CREATE PROC GetOrderDetail
+   @productId int
+BIGIN
+AS
+   IF(@productId = 1)
+      SELECT ProductId, OrderData FROM dbo.SalesOrderDetail WITH(FORCESCAN)
+      WHERE ProductId = @productId
+   ELSE
+      SELECT ProductId, OrderData FROM dbo.SalesOrderDetail WITH(FORCESEEK)
+      WHERE ProductId = @productId
+END
+</code></pre></div><h2 id="結尾"><a href="#結尾" aria-hidden="true" class="header-anchor">#</a> 結尾</h2> <p>我是 <strong>菜鳥的水準</strong> 又是在意 <strong>簡潔的程式碼</strong> , 如果遇到資料差異太大問題, 所以就選</p> <blockquote><p>OPTIMIZE FOR UNKNOWN</p></blockquote> <p>來解決這惱人的問題.</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/flashlin.github.io/Yarn.html" class="prev">Yarn</a></span> <span class="next"><a href="/flashlin.github.io/Docker/20191020-1700-Docker-Swarm-Mode.html">Docker Swarm Mode</a>→
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/flashlin.github.io/assets/js/app.104204f2.js" defer></script><script src="/flashlin.github.io/assets/js/2.a0c46ff0.js" defer></script><script src="/flashlin.github.io/assets/js/13.b2220085.js" defer></script>
+  </body>
+</html>
